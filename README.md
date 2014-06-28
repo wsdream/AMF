@@ -1,4 +1,4 @@
-AMF (Adaptive Matrix Factorization)
+AMF_Pack
 ===
 
 

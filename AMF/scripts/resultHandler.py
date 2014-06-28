@@ -15,7 +15,7 @@ def main():
 	resultFolder = '../result/'
 	lineIdToExtract = 2
 	timeSlice = 64
-	density = list(np.arange(0.05, 0.46, 0.05))
+	density = list(np.arange(0.05, 0.51, 0.05))
 
 	for den in density:
 		result = []

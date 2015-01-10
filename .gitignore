@@ -2,6 +2,6 @@
 *.DS_Store
 *.pyc
 build
-data/dataset#2/rtdata.txt
-data/dataset#2/tpdata.txt
+dataset#2/rtdata.txt
+dataset#2/tpdata.txt
 

@@ -3,7 +3,7 @@ README file for AMF
 ----------------------------------------------------------------------------
 
 Author: Jamie Zhu <jimzhu@GitHub>
-Last updated: 2014/6/26.
+Last updated: 2015/4/30.
 
 This package implements an online QoS prediction approach, adaptive matrix 
 factorization (AMF) [Zhu et al., ICDCS'14].
@@ -55,8 +55,8 @@ for your research work.
 On the other hand, if you want to reproduce our experiments, you can run the 
 program with our provided Matlab scripts "run_rt.m" and "run_tp.m".
 
->> python run_rt.m
->> python run_tp.m
+>> run_rt.m
+>> run_tp.m
 
 ----------------------------------------------------------------------------
 Reference paper
@@ -77,7 +77,7 @@ Issues
 ----------------------------------------------------------------------------
 
 In case of questions or problems, please do not hesitate to report to our 
-issue page (https://github.com/WS-DREAM/AMF_Pack/issues). We will help ASAP. 
+issue page (https://github.com/WS-DREAM/AMF/issues). We will help ASAP. 
 In addition, we will appreciate any contribution to refine and optimize this 
 package.
 
@@ -85,10 +85,14 @@ package.
 Copyright
 ----------------------------------------------------------------------------
 
-This software and data is provided as-is, and there are no guarantees
-that it fits your purposes or that it is bug-free. It is only freely available 
-for research purposes. Downloading and using the package will indicate your 
-acceptance to enter into a GNU General Public License agreement. 
-Redistribution of this package to any other third party or over the Web is 
-not permitted.
+Copyright (c) WS-DREAM@GitHub, CUHK.
+
+Permission is granted for anyone to copy, use, modify, or distribute this 
+program and accompanying programs and documents for any purpose, provided 
+this copyright notice is retained and prominently displayed, along with a 
+note saying that the original programs are available from our web page 
+(https://wsdream.github.io). The program is provided as-is, and there are 
+no guarantees that it fits your purposes or that it is bug-free. All use 
+of these programs is entirely at the user's own risk. For any enquiries, 
+please feel free to contact Jamie Zhu <jmzhu AT cse.cuhk.edu.hk>.
 

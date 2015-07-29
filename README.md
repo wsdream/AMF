@@ -3,6 +3,7 @@
 This repository maintains a set of public Web service datasets used in our code implementation. More information available at http://wsdream.github.io/dataset.
 
 ###dataset#1
+
 ---
 339 * 5825 Web service QoS dataset
 ---
@@ -13,7 +14,8 @@ the dataset. It is available for downloading at:
 http://wsdream.github.io/dataset/wsrec_dataset1
 
 
-####dataset#2
+###dataset#2
+
 ---
 142 * 4500 * 64 time-aware Web service QoS dataset
 ---
@@ -29,4 +31,4 @@ location information
 - Prof. Mingdong Tang (HNUST) for contributing the AS information of the users and services 
 
 ##Copyright &copy;
-Permission is granted for anyone to copy, use, modify, or distribute this program and accompanying programs and documents for any purpose, provided this copyright notice is retained and prominently displayed, along with a note saying that the original programs are available from our web page (https://wsdream.github.io). The program is provided as-is, and there are no guarantees that it fits your purposes or that it is bug-free. All use of these programs is entirely at the user's own risk.
+Permission is granted for anyone to copy, use, or modify this dataset and accompanying documents for any purpose, provided this copyright notice is retained and prominently displayed, along with a note saying that the original data are available from our web page (https://wsdream.github.io). All use of these data is entirely at the user's own risk.

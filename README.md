@@ -34,7 +34,7 @@ http://wsdream.github.io/dataset/wsrec_dataset2
 - PlanetLab (http://www.planet-lab.org/) for use to collect the dataset
 - IPLocation (http://www.iplocation.net/) for use to collect the 
 location information
-- Prof. Mingdong Tang (HNUST) for contributing the AS information of the users and services 
+- [Prof. Mingdong Tang](http://dblp.uni-trier.de/pers/hd/t/Tang:Mingdong) (HNUST) for contributing the AS information of the users and services 
 
 ##Copyright &copy;
 Permission is granted for anyone to copy, use, or modify this dataset and accompanying documents for any purpose, provided this copyright notice is retained and prominently displayed, along with a note saying that the original data are available from our web page (https://wsdream.github.io). All use of these data is entirely at the user's own risk.

@@ -1,3 +1,3 @@
 [submodule "data"]
 	path = data
-	url = https://github.com/WS-DREAM/Dataset.git
+	url = https://github.com/wsdream/dataset.git

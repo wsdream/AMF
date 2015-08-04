@@ -3,83 +3,115 @@ README file for AMF
 ----------------------------------------------------------------------------
 
 Author: Jamie Zhu <jimzhu@GitHub>
-Last updated: 2015/4/30.
+Last updated: 2015/07/29.
 
 This package implements an online QoS prediction approach, adaptive matrix 
-factorization (AMF) [Zhu et al., ICDCS'14].
-
-The approach is implemented based on Matlab(8.3).
+factorization (AMF), presented in the work [Zhu et al., ICDCS'14].
 
 ----------------------------------------------------------------------------
-List of contents of package
+Reference and citation
+----------------------------------------------------------------------------
+
+Please refer to the following paper for the detailed description of the 
+implemented algorithm:
+
+- Jieming Zhu, Pinjia He, Zibin Zheng, and Michael R. Lyu, "Towards Online, 
+  Accurate, and Scalable QoS Prediction for Runtime Service Adaptation," in 
+  Proc. of IEEE ICDCS, 2014, pp. 318-327. 
+
+IF YOU USE THIS PACKAGE IN PUBLISHED RESEARCH, PLEASE CITE THE ABOVE PAPER. 
+THANKS!
+
+----------------------------------------------------------------------------
+Dependencies
+----------------------------------------------------------------------------
+
+- Python 2.7 (https://www.python.org)
+- Cython 0.20.1 (http://cython.org)
+- numpy 1.8.1 (http://www.scipy.org)
+- scipy 0.13.3 (http://www.scipy.org)
+
+The implementations are based on a combination of Python and C++ programming 
+languages, in order to achieve both speed and simplicity. To do so, Cython is 
+used. The core algorithms are implemented using C++, and we obtain a large 
+speedup than pure Python implementation. You can refer to the README.md of 
+WSRec repository for instructions of installing Cython. But you do not need 
+it if you only want to reproduce the experimental results by executing the 
+scripts that I have provided (You may even not need any execution because 
+we have also provided most of the results). Cython is only required when you 
+modify the c++ source files and want to re-compile them. 
+
+It is worth noting that our implementation is also based on numpy and scipy 
+packages, so you would also need to install these packages first.
+
+----------------------------------------------------------------------------
+Contents of this package
 ----------------------------------------------------------------------------
 
 AMF/
-  - run_rt.m                  - script file for running the experiments on 
-                                response-time QoS data 
-  - run_tp.m                  - script file for running the experiments on 
-                                throughput QoS data
-  - readme.txt                - descriptions of this package 
-  - src/                      - directory of the source files
-      - logger.m              - a function to perform logging
-      - saveResult.m          - a function to compute and save the average results
-      - execute.m             - control execution and results collection of  
-                                the specific algorithm
-      - AMF.m                 - the core algorithm to perform AMF
-  - scripts/
-      - resultHandler.py      - a script file to compute the average values of 
-                                the raw results in "result/"
-  - result/                   - directory for storing evaluation results
-                                available metrics: (MAE, NMAE, RMSE, MRE, NPRE)
-      - 01_rtResult_0.05.txt  - E.g., the reponse-time prediction result with 
-                                20 runs, performed for time slice = 01, under 
-                                matrix density = 5%
-      - [...]                 - many other results
-	  - average/
-          - avg_rtResult_0.05.txt  - the average result over 64 time slices
-          - [...]                  - results for other densities
-		  
+  - run_rt.py                   - script file for running the experiments on 
+                                  response-time QoS data
+  - run_tp.py                   - script file for running the experiments on 
+                                  throughput QoS data
+  - setup.py                    - setup script file for build c++ modules
+  - readme.txt                  - descriptions of this package 
+  - src/                        - directory of the source files
+      - dataloader.py           - a function to load the dataset (with 
+                                  preprocessing)
+      - utilities.py            - a script containing a bag of useful utilities
+      - evaluator.py            - control execution and results collection of the 
+                                  specific algorithm
+      - resultHandler.py        - a script to calculate the average values over 
+                                  different time slices
+      - core.so                 - the external module built from C++ 
+                                  implementations
+      - core/                   - directory of c++ implementation 
+          - AMF.h               - header file
+          - AMF.cpp             - source file
+          - core.pyx            - a python wrapper written in Cython for C++ 
+                                  functions 
+          - core.cpp            - This file is automatically generated by Cython 
+                                  for building core.so
+  - result/                     - directory for storing evaluation results
+                                  available metrics: (MAE, NMAE, RMSE, MRE, NPRE)
+	    - raw/                    - the raw results obtained over each time slice
+      - avg_rtResult_0.05.txt   - E.g., the response-time prediction result under 
+                                  matrix density = 5%
+      - [...]                   - many other results
+
 ----------------------------------------------------------------------------
-Using the package
+Usage of this package
 ----------------------------------------------------------------------------
 
 For ease of reproducing and compare with other approaches, we provide the 
 detailed experimental results with five metrics (MAE, NMAE, RMSE, MRE, NPRE), 
-under the "result/" directory, after running the above five QoS prediction 
-approaches on "data/". E.g.,"result/average/avg_rtResult_0.05.txt" records the 
-evaluation results under matrix density = 5%. In particular, each experiment 
-under each time slice is run for 20 times and the average result (including 
-std value) over 20*64 runs is reported. These results can be directly used 
-for your research work.
+under the "result/" directory, after running the above QoS prediction approach 
+on our dataset. E.g.,"result/avg_rtResult_0.05.txt" records the evaluation 
+results under matrix density = 5%. In particular, each experiment is run for 
+20 times and the average result (including std value) is reported. These 
+results can be directly used for your research work.
 
 On the other hand, if you want to reproduce our experiments, you can run the 
-program with our provided Matlab scripts "run_rt.m" and "run_tp.m".
+program with our provided Python scripts "run_rt.py" and "run_tp.py". You can
+also turn on the "parallelMode" in the config area for speedup if you use a 
+multi-core computer.
 
->> run_rt.m
->> run_tp.m
+>> python run_rt.py
+>> python run_tp.py
 
-----------------------------------------------------------------------------
-Reference paper
-----------------------------------------------------------------------------
+Make sure the external module "core.so" exists. If not, you can build it by 
+the follow command. Note that whereas our code is executable to different 
+platforms, we has only tested the current version on Linux.
 
-Please refer to the following papers for the detailed descriptions of the 
-implemented algorithms:
-
-- Jieming Zhu, Pinjia He, Zibin Zheng, and Michael R. Lyu, "Towards Online, 
-  Accurate, and Scalable QoS Prediction for Runtime Service Adaptation," in 
-  Proc. of IEEE ICDCS, 2014.
-
-IF YOU USE THIS PACKAGE IN PUBLISHED RESEARCH, PLEASE CITE THE ABOVE PAPER. 
-THANKS!
+>> python setup.py build_ext --inplace
 
 ----------------------------------------------------------------------------
 Issues
 ----------------------------------------------------------------------------
 
 In case of questions or problems, please do not hesitate to report to our 
-issue page (https://github.com/WS-DREAM/AMF/issues). We will help ASAP. 
-In addition, we will appreciate any contribution to refine and optimize this 
-package.
+issue page (https://github.com/wsdream/AMF/issues). We will help ASAP. In 
+addition, we will appreciate any contribution to refine this package.
 
 ----------------------------------------------------------------------------
 Copyright
@@ -94,5 +126,5 @@ note saying that the original programs are available from our web page
 (https://wsdream.github.io). The program is provided as-is, and there are 
 no guarantees that it fits your purposes or that it is bug-free. All use 
 of these programs is entirely at the user's own risk. For any enquiries, 
-please feel free to contact Jamie Zhu <jmzhu AT cse.cuhk.edu.hk>.
+please feel free to contact us <wsdream.maillist@gmail.com>.
 

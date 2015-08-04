@@ -1,5 +1,8 @@
 # ignore all obj and bin folders (even in subdirectories)
 *.DS_Store
 *.pyc
+*.log
+*.dump
+run_tp.py
 build/
-data/processedData
+result/

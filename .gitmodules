@@ -1,3 +1,6 @@
 [submodule "data"]
 	path = data
 	url = https://github.com/wsdream/dataset.git
+[submodule "externals/Cython"]
+	path = externals/Cython
+	url = https://github.com/cython/cython.git

@@ -9,7 +9,7 @@ import numpy as np
 from numpy import linalg as LA
 from scipy import stats
 import cPickle as pickle
-import time, sys
+import time
 import random
 import core
 from utilities import *
@@ -65,7 +65,7 @@ def execute(tensor, density, roundId, para):
             %(para['outPath'], sliceId + 1, para['dataType'], density, roundId + 1)
         with open(outFile, 'wb') as fid:
             pickle.dump(result, fid)
-        logger.info('sliceId = %02d done'%(sliceId + 1))
+        logger.info('SliceId = %02d done.'%(sliceId + 1))
 
     logger.info('Matrix density = %.2f, %d-round done. Running time: %.2f sec'
             %(density, roundId + 1, time.clock() - startTime))

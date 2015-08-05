@@ -3,6 +3,5 @@
 *.pyc
 *.log
 *.dump
-run_tp.py
 build/
 result/

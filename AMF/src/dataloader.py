@@ -17,12 +17,13 @@ def load(para):
     datafile = para['dataPath'] + para['dataType'] + 'data.txt'
     logger.info('Loading data: %s'%datafile)
     dataTensor = -1 * np.ones((142, 4500, 64))
-    with open(datafile) as lines:
-        for line in lines:
-            data = line.split(' ')
-            rt = float(data[3])
-            if rt > 0:
-                dataTensor[int(data[0]), int(data[1]), int(data[2])] = rt
+    fid = open(datafile, 'r')
+    for line in fid:
+        data = line.split(' ')
+        rt = float(data[3])
+        if rt > 0:
+            dataTensor[int(data[0]), int(data[1]), int(data[2])] = rt
+    fid.close()
     dataTensor = preprocess(dataTensor, para)
     logger.info('Loading data done.')
     logger.info('Data size: %d users * %d services * %d timeslices'\

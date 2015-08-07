@@ -9,7 +9,7 @@ import numpy as np
 from numpy import linalg as LA
 from scipy import stats
 import cPickle as pickle
-import time
+import time, sys
 import random
 import core
 from utilities import *
@@ -43,7 +43,7 @@ def execute(tensor, density, roundId, para):
 
         # remove the entries of data matrix to generate trainMatrix and testMatrix  
         seedID = roundId + sliceId * 100
-        (trainMatrix, testMatrix) = removeEntries(matrix, density, seedID) 
+        (trainMatrix, testMatrix) = removeEntries(matrix, density, seedID)
         trainMatrix = np.where(trainMatrix > 0, transfMatrix, 0)
         (testVecX, testVecY) = np.where(testMatrix)     
         testVec = matrix[testVecX, testVecY]
@@ -52,7 +52,7 @@ def execute(tensor, density, roundId, para):
         sliceStartTime = time.clock() # to record the running time for one slice            
         predictedMatrix = core.predict(trainMatrix, U, S, para)     
         timeResult = time.clock() - sliceStartTime
-        
+
         # calculate the prediction error
         predVec = predictedMatrix[testVecX, testVecY]
         predVec = (maxV - minV) * predVec + minV

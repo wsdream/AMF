@@ -19,7 +19,9 @@ def process(para, numTimeSlice):
     resultFolder = para['outPath'].split('/')[0] + '/'
     rounds = para['rounds']
     skippedHeader = 6
-            
+    
+    print '===== Average result summary ====='
+    print 'Metrics:', para['metrics']        
     for den in para['density']:
         result = np.zeros((rounds, len(para['metrics']), numTimeSlice))
         for timeslice in xrange(numTimeSlice):
@@ -40,7 +42,7 @@ def process(para, numTimeSlice):
         outfile = resultFolder + 'avg_%sResult_%.2f.txt'%(para['dataType'], den)
         saveAvgResult(outfile, resultOfRounds, para)
         avgResult = np.average(resultOfRounds, axis=0)
-        print avgResult
+        print 'density=%.2f: '%den, avgResult
 ########################################################
 
 

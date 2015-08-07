@@ -20,10 +20,10 @@ double loss(double **U, double **S, double **removedMatrix, double **predMatrix,
     int numUser, int numService, int dim);
 
 /* Sigmoid function */
-double sigmoid(double x);
+double sigmoid(long double x);
 
 /* Compute the gradient of sigmoid function */
-double grad_sigmoid(double x);
+long double grad_sigmoid(long double x);
 
 /* Compute predMatrix */
 void getPredMatrix(bool flag, double **removedMatrix, double **U, double **S, int numUser, 
@@ -33,7 +33,7 @@ void getPredMatrix(bool flag, double **removedMatrix, double **U, double **S, in
 double **vector2Matrix(double *vector, int row, int col);
 
 /* Compute the dot product of two vectors */
-double dotProduct(double *vec1, double *vec2, int len);
+long double dotProduct(double *vec1, double *vec2, int len);
 
 /* Allocate memory for a 2D array */
 double **createMatrix(int row, int col);

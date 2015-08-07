@@ -16,7 +16,7 @@
 using namespace std;
 
 typedef pair<pair<int, int>, double> SAMPLE;
-const double EPS = 1e-10;
+const double EPS = 1e-8;
 
 
 inline double sqr(double x) {return x * x;}
@@ -35,7 +35,7 @@ void AMF(double *removedData, int numUser, int numService, int dim, double lmda,
     double **predMatrix = vector2Matrix(predData, numUser, numService);
 
     // --- transform removedMatrix into tuple samples
-    vector<SAMPLE> samples;
+    vector<SAMPLE> samples; 
     for (int i = 0; i < numUser; i++) {
         for (int j = 0; j < numService; j++) {
             if (fabs(removedMatrix[i][j]) > EPS) {
@@ -46,20 +46,22 @@ void AMF(double *removedData, int numUser, int numService, int dim, double lmda,
 
     // --- iterate by standard gradient descent algorithm
     SAMPLE spInstance;
-    double rValue, uv, pValue, gradU, gradS, eij, wi, wj, lossValue;
-    vector<double> eu(numUser, 1), es(numService, 1);
+    int i, j;
+    double rValue, lossValue, gradU, gradS;
+    long double eij, wi, wj;
+    vector<long double> eu(numUser, 1), es(numService, 1);   
     for (int iter = 0; iter < maxIter; iter++) {
         // --- random shuffle of samples
         random_shuffle(samples.begin(), samples.end());
         for (int s = 0; s < samples.size(); s++) {
             spInstance = samples[s];
-            int i = spInstance.first.first;
-            int j = spInstance.first.second;
+            i = spInstance.first.first;
+            j = spInstance.first.second;
             rValue = spInstance.second;
 
             // confidence updates
-            uv = dotProduct(U[i], S[j], dim);
-            pValue = sigmoid(uv);
+            long double uv = dotProduct(U[i], S[j], dim);
+            double pValue = sigmoid(uv);
             eij = fabs(pValue - rValue) / rValue;
             wi = eu[i] / (eu[i] + es[j]);
             wj = es[j] / (eu[i] + es[j]);
@@ -67,15 +69,16 @@ void AMF(double *removedData, int numUser, int numService, int dim, double lmda,
             es[j] = beta * wj * eij + (1 - beta * wj) * es[j];
 
             // gradient descent updates
+            long double grad_sigmoid_uv = grad_sigmoid(uv);
+            double sqr_rValue = sqr(rValue);
             for (int k = 0; k < dim; k++) {
-                gradU = wi * (pValue - rValue) * grad_sigmoid(uv) * S[j][k] / sqr(rValue)
+                gradU = wi * (pValue - rValue) * grad_sigmoid_uv * S[j][k] / sqr_rValue
                     + lmda * U[i][k];
-                gradS = wj * (pValue - rValue) * grad_sigmoid(uv) * U[i][k] / sqr(rValue)
+                gradS = wj * (pValue - rValue) * grad_sigmoid_uv * U[i][k] / sqr_rValue
                     + lmda * S[j][k];
                 U[i][k] -= eta * gradU;
                 S[j][k] -= eta * gradS;
             }
-
 
             // log the debug info
             cout.setf(ios::fixed);
@@ -132,18 +135,6 @@ double loss(double **U, double **S, double **removedMatrix, double **predMatrix,
 }
 
 
-double sigmoid(double x)
-{
-    return 1 / (1 + exp(-x));
-}
-
-
-double grad_sigmoid(double x)
-{
-    return 1 / (2 + exp(-x) + exp(x));
-}
-
-
 void getPredMatrix(bool flag, double **removedMatrix, double **U, double **S, int numUser, 
         int numService, int dim, double **predMatrix)
 {
@@ -158,9 +149,21 @@ void getPredMatrix(bool flag, double **removedMatrix, double **U, double **S, in
 }
 
 
-double dotProduct(double *vec1, double *vec2, int len)  
+double sigmoid(long double x)
 {
-    double product = 0;
+    return 1 / (1 + exp(-x));
+}
+
+
+long double grad_sigmoid(long double x)
+{
+    return 1 / (2 + exp(-x) + exp(x));
+}
+
+
+long double dotProduct(double *vec1, double *vec2, int len)  
+{
+    long double product = 0;
     for (int i = 0; i < len; i++) {
         product += vec1[i] * vec2[i];
     }

@@ -35,7 +35,7 @@ para = {'dataType': 'rt', # choose 'rt' for response-time prediction
         'dimension': 10, # dimenisionality of the latent factors
         'eta': 0.8, # learning rate
         'lambda': 0.0003, # regularization parameter
-        'maxIter': 100, # the max iterations
+        'maxIter': 50, # the max iterations
         'beta': 0.3, # the controlling weight of exponential moving average
         'saveTimeInfo': False, # whether to keep track of the running time
         'saveLog': True, # whether to save log into file
@@ -50,9 +50,12 @@ initConfig(para)
 startTime = time.clock() # start timing
 logger.info('==============================================')
 logger.info('AMF: Adaptive Matrix Factorization [ICDCS\'14].')
-
+time1 = time.clock()
 # load the dataset
 dataTensor = dataloader.load(para)
+# todo
+print 'time: ', time.clock() - time1
+dataTensor = dataTensor[:,:,0:1]
 
 # run for each density
 if para['parallelMode']: # run on multiple processes

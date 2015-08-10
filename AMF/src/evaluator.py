@@ -7,6 +7,7 @@
 
 import numpy as np 
 from numpy import linalg as LA
+from scipy.stats import logistic
 from scipy import stats
 import cPickle as pickle
 import time, sys
@@ -21,13 +22,9 @@ from utilities import *
 def execute(tensor, density, roundId, para):
     startTime = time.clock()
     (numUser, numService, numTime) = tensor.shape
-    logger.info('matrix density = %.2f, %d-round starts.'%(density, roundId + 1))
-    logger.info('----------------------------------------------')
-
-    # initialization
     dim = para['dimension']
-    U = np.random.rand(numUser, dim)
-    S = np.random.rand(numService, dim)
+    logger.info('matrix density = %.2f, %d-round starts.'%(density, roundId + 1))
+    logger.info('----------------------------------------------') 
 
     # run for each time slice
     for sliceId in xrange(numTime):
@@ -37,6 +34,11 @@ def execute(tensor, density, roundId, para):
         (transfVector, alpha) = stats.boxcox(dataVector[dataVector > 0])
         maxV = np.max(transfVector)
         minV = np.min(transfVector)
+
+        # print maxV
+        # print minV
+        # print alpha
+
         transfMatrix = matrix.copy()
         transfMatrix[transfMatrix != -1] = stats.boxcox(transfMatrix[transfMatrix != -1], alpha)
         transfMatrix[transfMatrix != -1] = (transfMatrix[transfMatrix != -1] - minV) / (maxV - minV)
@@ -45,8 +47,43 @@ def execute(tensor, density, roundId, para):
         seedID = roundId + sliceId * 100
         (trainMatrix, testMatrix) = removeEntries(matrix, density, seedID)
         trainMatrix = np.where(trainMatrix > 0, transfMatrix, 0)
+        # #todo
+        # np.savetxt('trainMatrix.txt',trainMatrix)
+        # np.savetxt('testMatrix.txt', testMatrix)
+        # sys.exit()
+        # trainMatrix = np.loadtxt('trainMatrix.txt')
+        # testMatrix = np.loadtxt('testMatrix.txt')
+        # print trainMatrix
+        # print (np.sum(trainMatrix[0,:]>0)) / 4500.0
+
         (testVecX, testVecY) = np.where(testMatrix)     
         testVec = matrix[testVecX, testVecY]
+
+        # initialization
+        if sliceId == 0:
+            # (A, s, V) = np.linalg.svd(trainMatrix, full_matrices=False)
+            # U = np.dot(A[:, 0:dim], np.sqrt(np.diag(s[0:dim])))
+            # S = (np.dot(np.sqrt(np.diag(s[0:dim])), V[0:dim, :]).T).copy()
+
+            minSumSquare = np.inf
+            for i in xrange(20):              
+                np.random.seed(i)
+                U0 = np.random.rand(numUser, dim)
+                np.random.seed(i + 1)
+                S0 = np.random.rand(numService, dim)
+                I = trainMatrix > 0
+                sumSquare = np.sum((I * logistic.cdf(np.dot(U0, S0.T)) - trainMatrix) ** 2)
+                if sumSquare < minSumSquare:
+                    minSumSquare = sumSquare
+                    U = U0.copy()
+                    S = S0.copy()
+
+
+        # todo
+        # if roundId == 2:
+        #     np.savetxt('trainMatrix.txt', trainMatrix)
+        #     np.savetxt('testMatrix.txt', testMatrix)
+
 
         # invocation to the prediction function
         sliceStartTime = time.clock() # to record the running time for one slice            

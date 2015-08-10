@@ -125,6 +125,5 @@ this copyright notice is retained and prominently displayed, along with a
 note saying that the original programs are available from our web page 
 (https://wsdream.github.io). The program is provided as-is, and there are 
 no guarantees that it fits your purposes or that it is bug-free. All use 
-of these programs is entirely at the user's own risk. For any enquiries, 
-please feel free to contact us <wsdream.maillist@gmail.com>.
+of these programs is entirely at the user's own risk.
 

@@ -12,10 +12,11 @@
 #include <vector>
 #include <utility>
 #include <algorithm>
+#include <ctime>
+#include <cstdlib>
 #include "AMF.h"
 using namespace std;
 
-typedef pair<pair<int, int>, double> SAMPLE;
 const double EPS = 1e-8;
 
 
@@ -34,30 +35,41 @@ void AMF(double *removedData, int numUser, int numService, int dim, double lmda,
     double **S = vector2Matrix(Sdata, numService, dim);
     double **predMatrix = vector2Matrix(predData, numUser, numService);
 
-    // --- transform removedMatrix into tuple samples
-    vector<SAMPLE> samples; 
-    for (int i = 0; i < numUser; i++) {
-        for (int j = 0; j < numService; j++) {
+    // --- transform removedMatrix into samples
+    vector<pair<int, int> > spIndex;
+    vector<double> spValue;   
+    int numSample = 0;
+    for (int i = 0; i < numUser; i++) { 
+        for (int j = 0; j < numService; j++) {       
             if (fabs(removedMatrix[i][j]) > EPS) {
-                samples.push_back(make_pair(make_pair(i, j), removedMatrix[i][j]));
+                spIndex.push_back(make_pair(i, j));
+                spValue.push_back(removedMatrix[i][j]);
+                numSample++;
             }
         }
     }
 
     // --- iterate by standard gradient descent algorithm
-    SAMPLE spInstance;
-    int i, j;
+    int i, j, spId;
     double rValue, lossValue, gradU, gradS;
     long double eij, wi, wj;
     vector<long double> eu(numUser, 1), es(numService, 1);   
     for (int iter = 0; iter < maxIter; iter++) {
-        // --- random shuffle of samples
-        random_shuffle(samples.begin(), samples.end());
-        for (int s = 0; s < samples.size(); s++) {
-            spInstance = samples[s];
-            i = spInstance.first.first;
-            j = spInstance.first.second;
-            rValue = spInstance.second;
+        
+                    // // update predMatrix and loss value
+                    // getPredMatrix(false, removedMatrix, U, S, numUser, numService, dim, predMatrix);
+                    // lossValue = loss(U, S, removedMatrix, predMatrix, lmda, numUser, numService, dim);
+                    // cout << currentDateTime() << ": ";
+                    // cout << "iter = " << iter << ", lossValue = " << lossValue << endl;
+        for (int s = 0; s < numSample; s++) {
+            // random sample generation
+            srand(iter * numSample + s);
+            spId = rand() % numSample;
+            //spId = s;
+            // if (s == 0) cout<< "spid = "<<spId << endl;
+            i = spIndex[spId].first;
+            j = spIndex[spId].second;
+            rValue = spValue[spId];
 
             // confidence updates
             long double uv = dotProduct(U[i], S[j], dim);
@@ -84,7 +96,7 @@ void AMF(double *removedData, int numUser, int numService, int dim, double lmda,
             cout.setf(ios::fixed);
             if (debugMode) {
                 // check for convergence
-                if ((iter * samples.size() + s) % 10000 == 0) {
+                if ((iter * numSample + s) % 10000 == 0) {
                     // update predMatrix and loss value
                     getPredMatrix(false, removedMatrix, U, S, numUser, numService, dim, predMatrix);
                     lossValue = loss(U, S, removedMatrix, predMatrix, lmda, numUser, numService, dim);

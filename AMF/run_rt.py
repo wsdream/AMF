@@ -50,12 +50,9 @@ initConfig(para)
 startTime = time.clock() # start timing
 logger.info('==============================================')
 logger.info('AMF: Adaptive Matrix Factorization [ICDCS\'14].')
-time1 = time.clock()
+
 # load the dataset
 dataTensor = dataloader.load(para)
-# todo
-print 'time: ', time.clock() - time1
-dataTensor = dataTensor[:,:,0:1]
 
 # run for each density
 if para['parallelMode']: # run on multiple processes

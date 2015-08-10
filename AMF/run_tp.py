@@ -30,7 +30,7 @@ para = {'dataType': 'tp', # choose 'tp' for throughput prediction
         'dataPath': '../data/dataset#2/',
         'outPath': 'result/raw/',
         'metrics': ['MAE', 'NMAE', 'RMSE', 'MRE', 'NPRE'], # delete where appropriate       
-        'density': list(np.arange(0.05, 0.51, 0.05)), # matrix density
+        'density': list(np.arange(0.15, 0.16, 0.05)), # matrix density
         'rounds': 20, # how many runs are performed at each matrix density
         'dimension': 10, # dimenisionality of the latent factors
         'eta': 0.8, # learning rate
@@ -40,7 +40,7 @@ para = {'dataType': 'tp', # choose 'tp' for throughput prediction
         'saveTimeInfo': False, # whether to keep track of the running time
         'saveLog': True, # whether to save log into file
         'debugMode': False, # whether to record the debug info
-        'parallelMode': True # whether to leverage multiprocessing for speedup
+        'parallelMode': False # whether to leverage multiprocessing for speedup
         }
 
 initConfig(para)
@@ -53,6 +53,7 @@ logger.info('AMF: Adaptive Matrix Factorization [ICDCS\'14].')
 
 # load the dataset
 dataTensor = dataloader.load(para)
+dataTensor = dataTensor[:,:,0:1]
 
 # run for each density
 if para['parallelMode']: # run on multiple processes

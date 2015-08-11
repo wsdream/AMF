@@ -12,8 +12,8 @@ using namespace std;
 
 /* Perform the core approach of AMF */
 void AMF(double *removedData, int numUser, int numService, int dim, double lmda, 
-    int maxIter, double eta, double beta, bool debugMode, double *Udata, double *Sdata, 
-    double *predData);
+    int maxIter, double convergeThreshold, double eta, double beta, bool debugMode, 
+    double *Udata, double *Sdata, double *predData);
 
 /* Compute the loss value of AMF */
 double loss(double **U, double **S, double **removedMatrix, double **predMatrix, double lmda, 
@@ -40,6 +40,9 @@ double **createMatrix(int row, int col);
 
 /* Free memory for a 2D array */ 
 void delete2DMatrix(double **ptr); 
+
+/* Copy matrix */
+void copyMatrix(double **M1, double **M2, int row, int col);
 
 /* Get current data/time, format is YYYY-MM-DD hh:mm:ss */
 const string currentDateTime();

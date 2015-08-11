@@ -1,8 +1,8 @@
 ########################################################
-# run_tp.py: throughput prediction 
+# run_rt.py: response-time prediction 
 # Author: Jamie Zhu <jimzhu@GitHub>
 # Created: 2014/2/6
-# Last updated: 2015/8/4
+# Last updated: 2015/7/29
 # Implemented approach: AMF
 # Evaluation metrics: MAE, NMAE, RMSE, MRE, NPRE
 ########################################################
@@ -26,21 +26,22 @@ import resulthandler
 #########################################################
 # config area
 #
-para = {'dataType': 'tp', # choose 'tp' for throughput prediction
+para = {'dataType': 'rt', # choose 'rt' for response-time prediction
         'dataPath': '../data/dataset#2/',
         'outPath': 'result/raw/',
         'metrics': ['MAE', 'NMAE', 'RMSE', 'MRE', 'NPRE'], # delete where appropriate       
-        'density': list(np.arange(0.15, 0.16, 0.05)), # matrix density
+        'density': list(np.arange(0.05, 0.51, 0.05)), # matrix density
         'rounds': 20, # how many runs are performed at each matrix density
         'dimension': 10, # dimenisionality of the latent factors
         'eta': 0.8, # learning rate
-        'lambda': 0.0002, # regularization parameter
+        'lambda': 0.0003, # regularization parameter
         'maxIter': 50, # the max iterations
+        'convergeThreshold': 7e-3, # stopping criteria for convergence
         'beta': 0.3, # the controlling weight of exponential moving average
         'saveTimeInfo': False, # whether to keep track of the running time
         'saveLog': True, # whether to save log into file
         'debugMode': False, # whether to record the debug info
-        'parallelMode': False # whether to leverage multiprocessing for speedup
+        'parallelMode': True # whether to leverage multiprocessing for speedup
         }
 
 initConfig(para)
@@ -53,7 +54,6 @@ logger.info('AMF: Adaptive Matrix Factorization [ICDCS\'14].')
 
 # load the dataset
 dataTensor = dataloader.load(para)
-dataTensor = dataTensor[:,:,0:1]
 
 # run for each density
 if para['parallelMode']: # run on multiple processes

@@ -16,9 +16,9 @@ from libcpp cimport bool
 # Make declarations on functions from cpp file
 #
 cdef extern from "AMF.h":
-    void AMF(double *removedData, int numUser, int numService, 
-        int dim, double lmda, int maxIter, double eta, double beta, 
-        bool debugMode, double *Udata, double *Sdata, double *predData)
+    void AMF(double *removedData, int numUser, int numService, int dim, double lmda, 
+        int maxIter, double convergeThreshold, double eta, double beta, bool debugMode, 
+        double *Udata, double *Sdata, double *predData)
 #########################################################
 
 
@@ -32,6 +32,7 @@ def predict(removedMatrix, U, S, para):
     cdef int dim = para['dimension']
     cdef double lmda = para['lambda']
     cdef int maxIter = para['maxIter']
+    cdef double convergeThreshold = para['convergeThreshold']
     cdef double eta = para['eta']
     cdef double beta = para['beta']
     cdef bool debugMode = para['debugMode']
@@ -48,6 +49,7 @@ def predict(removedMatrix, U, S, para):
         dim,
         lmda,
         maxIter,
+        convergeThreshold,
         eta,
         beta,
         debugMode,

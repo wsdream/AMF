@@ -26,14 +26,20 @@ inline double sqr(double x) {return x * x;}
  * Udata, Sdata, predData are the output values
 ********************************************************/
 void AMF(double *removedData, int numUser, int numService, int dim, double lmda, 
-    int maxIter, double eta, double beta, bool debugMode, double *Udata, double *Sdata, 
-    double *predData)
+    int maxIter, double convergeThreshold, double eta, double beta, bool debugMode, 
+    double *Udata, double *Sdata, double *predData)
 {   
     // --- transfer the 1D pointer to 2D array pointer
     double **removedMatrix = vector2Matrix(removedData, numUser, numService);
     double **U = vector2Matrix(Udata, numUser, dim);
     double **S = vector2Matrix(Sdata, numService, dim);
     double **predMatrix = vector2Matrix(predData, numUser, numService);
+
+    // --- create 2D matrix
+    double **lastU = createMatrix(numUser, dim);
+    double **lastS = createMatrix(numService, dim);
+    copyMatrix(lastU, U, numUser, dim);
+    copyMatrix(lastS, S, numService, dim);
 
     // --- transform removedMatrix into samples
     vector<pair<int, int> > spIndex;
@@ -50,23 +56,34 @@ void AMF(double *removedData, int numUser, int numService, int dim, double lmda,
     }
 
     // --- iterate by standard gradient descent algorithm
+    int iter = 0, minIter = 30, restart = 0;
     int i, j, spId;
-    double rValue, lossValue, gradU, gradS;
+    double rValue, lossValue = 1e10, gradU, gradS;
     long double eij, wi, wj;
-    vector<long double> eu(numUser, 1), es(numService, 1);   
-    for (int iter = 0; iter < maxIter; iter++) {
+    vector<long double> eu(numUser, 1), es(numService, 1);
+    srand(time(NULL));
+    while(lossValue > convergeThreshold || iter < minIter) {
+        // re-initialize U and S and restart iteration, if not converged
+        if (iter >= maxIter && restart < 10) {
+            iter = 0;
+            restart++;               
+            for (int k = 0; k < dim; k++) {
+                for (int a = 0; a < numUser; a++) {
+                    U[a][k] = ((double) rand()) / RAND_MAX;
+                }
+                for (int b = 0; b < numService; b++) {
+                    S[b][k] = ((double) rand()) / RAND_MAX;
+                }
+            }
+            cout.setf(ios::fixed);            
+            cout << currentDateTime() << ": ";
+            cout << "re-initialize and restart..." << endl;                          
+        }
         
-                    // // update predMatrix and loss value
-                    // getPredMatrix(false, removedMatrix, U, S, numUser, numService, dim, predMatrix);
-                    // lossValue = loss(U, S, removedMatrix, predMatrix, lmda, numUser, numService, dim);
-                    // cout << currentDateTime() << ": ";
-                    // cout << "iter = " << iter << ", lossValue = " << lossValue << endl;
+        // one iteration
         for (int s = 0; s < numSample; s++) {
-            // random sample generation
-            srand(iter * numSample + s);
+            // random sampling
             spId = rand() % numSample;
-            //spId = s;
-            // if (s == 0) cout<< "spid = "<<spId << endl;
             i = spIndex[spId].first;
             j = spIndex[spId].second;
             rValue = spValue[spId];
@@ -91,26 +108,28 @@ void AMF(double *removedData, int numUser, int numService, int dim, double lmda,
                 U[i][k] -= eta * gradU;
                 S[j][k] -= eta * gradS;
             }
-
-            // log the debug info
-            cout.setf(ios::fixed);
-            if (debugMode) {
-                // check for convergence
-                if ((iter * numSample + s) % 10000 == 0) {
-                    // update predMatrix and loss value
-                    getPredMatrix(false, removedMatrix, U, S, numUser, numService, dim, predMatrix);
-                    lossValue = loss(U, S, removedMatrix, predMatrix, lmda, numUser, numService, dim);
-                    cout << currentDateTime() << ": ";
-                    cout << "iter = " << iter << ", lossValue = " << lossValue << endl;
-                }
-            }
         }
 
+        // update predMatrix and loss value
+        getPredMatrix(false, removedMatrix, U, S, numUser, numService, dim, predMatrix);
+        lossValue = loss(U, S, removedMatrix, predMatrix, lmda, numUser, numService, dim);
+        lossValue = lossValue / numSample;
+
+        // log the debug info to check convergence   
+        if (debugMode) {
+            cout.setf(ios::fixed);            
+            cout << currentDateTime() << ": ";
+            cout << "iter = " << iter << ", lossValue = " << lossValue << endl;
+        }
+
+        iter++;
     }
 
     // update predMatrix
     getPredMatrix(true, removedMatrix, U, S, numUser, numService, dim, predMatrix);
 
+    delete2DMatrix(lastU);
+    delete2DMatrix(lastS);
     delete ((char*) U);
     delete ((char*) S);
     delete ((char*) removedMatrix);
@@ -211,9 +230,20 @@ double **createMatrix(int row, int col)
 }
 
 
-void delete2DMatrix(double **ptr) {
+void delete2DMatrix(double **ptr)
+{
     delete ptr[0];
     delete ptr;
+}
+
+
+void copyMatrix(double **M1, double **M2, int row, int col)
+{
+    for (int i = 0; i < row; i++) {
+        for (int j = 0; j < col; j++) {
+            M1[i][j] = M2[i][j];
+        }
+    }
 }
 
 

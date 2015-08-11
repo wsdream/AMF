@@ -1,8 +1,8 @@
 ########################################################
-# run_rt.py: response-time prediction 
+# run_tp.py: throughput prediction 
 # Author: Jamie Zhu <jimzhu@GitHub>
 # Created: 2014/2/6
-# Last updated: 2015/7/29
+# Last updated: 2015/8/4
 # Implemented approach: AMF
 # Evaluation metrics: MAE, NMAE, RMSE, MRE, NPRE
 ########################################################
@@ -26,7 +26,7 @@ import resulthandler
 #########################################################
 # config area
 #
-para = {'dataType': 'rt', # choose 'rt' for response-time prediction
+para = {'dataType': 'tp', # choose 'tp' for throughput prediction
         'dataPath': '../data/dataset#2/',
         'outPath': 'result/raw/',
         'metrics': ['MAE', 'NMAE', 'RMSE', 'MRE', 'NPRE'], # delete where appropriate       
@@ -34,8 +34,9 @@ para = {'dataType': 'rt', # choose 'rt' for response-time prediction
         'rounds': 20, # how many runs are performed at each matrix density
         'dimension': 10, # dimenisionality of the latent factors
         'eta': 0.8, # learning rate
-        'lambda': 0.0003, # regularization parameter
+        'lambda': 0.0002, # regularization parameter
         'maxIter': 50, # the max iterations
+        'convergeThreshold': 2.5e-3, # stopping criteria for convergence
         'beta': 0.3, # the controlling weight of exponential moving average
         'saveTimeInfo': False, # whether to keep track of the running time
         'saveLog': True, # whether to save log into file

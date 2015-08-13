@@ -2,7 +2,7 @@
 # evaluator.py
 # Author: Jamie Zhu <jimzhu@GitHub>
 # Created: 2014/2/6
-# Last updated: 2014/11/14
+# Last updated: 2015/8/11
 ########################################################
 
 import numpy as np 

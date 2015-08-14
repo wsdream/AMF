@@ -1,15 +1,16 @@
-----------------------------------------------------------------------------
-README file for 142 * 4500 * 64 time-aware Web service QoS dataset
-----------------------------------------------------------------------------
+****************************************************************************
+* README file for 142 * 4500 * 64 time-aware Web service QoS dataset
+* Last updated: 2015/08/14.
+****************************************************************************
 
 This dataset describes real-world QoS evaluation results from 142 users on 
 4,500 Web services over 64 different time slices (at 15-minute interval). 
 The dataset is available for downloading at: 
 http://wsdream.github.io/dataset/wsrec_dataset2
 
-----------------------------------------------------------------------------
+****************************************************************************
 List of contents of the dataset
-----------------------------------------------------------------------------
+****************************************************************************
 
 rtdata.txt  - response-time values of 4,500 Web services when invoked by 142 
               service users over 64 time slices. Data format:
@@ -21,9 +22,9 @@ tpdata.txt  - throughput values of 4,500 Web services when invoked by 142
               e.g.: 91    1196    62    32.88
 readme.txt  - descriptions of the dataset
 
-----------------------------------------------------------------------------
+****************************************************************************
 Reference paper
-----------------------------------------------------------------------------
+****************************************************************************
 
 Please refer to the following paper for the detailed descriptions of this 
 dataset:
@@ -35,12 +36,12 @@ dataset:
 IF YOU USE THIS DATASET IN PUBLISHED RESEARCH, PLEASE CITE THE ABOVE PAPER. 
 THANKS!
 
-----------------------------------------------------------------------------
-Copyright
-----------------------------------------------------------------------------
+****************************************************************************
+Copyright (c) WS-DREAM Team, CUHK
+****************************************************************************
 
-Our datasets are freely available for research purposes. Downloading and 
-using the dataset will indicate your acceptance to enter into a GNU General 
-Public License agreement. Redistribution of this dataset to any other third 
-party or over the Web is not permitted.
+Permission is granted for anyone to copy, use, or modify this dataset and 
+accompanying documents for any purpose, provided this copyright notice is 
+retained and prominently displayed, along with a note saying that the 
+original data are available from our web page (https://wsdream.github.io).
 

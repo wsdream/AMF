@@ -1,12 +1,16 @@
-## WS-DREAM datasets
+## Public Web Service Datasets
 
-This repository maintains a set of public Web service datasets used in our code implementation. More information available at http://wsdream.github.io/dataset.
+This repository maintains a set of publicly available datasets collected from real-world Web services, which have been used in our code implementation. 
 
+For more available datasets, please visit:
+- WS-DREAM QoS datasets: http://www.wsdream.net/dataset.html.
+- FSE'13 reliability data: http://ccl.fer.hr/wordpress/people/research-assistants/marin-silic/clus-evaluation-dataset
+- WWW'14 QoS dataset: http://www.service4all.org.cn/servicexchange
 
-###dataset#1
 
 ---
 
+###dataset#1
 **339 * 5825 Web service QoS dataset**
 
 ---
@@ -18,10 +22,9 @@ the dataset. It is available for downloading at:
 http://wsdream.github.io/dataset/wsrec_dataset1
 
 
-###dataset#2
-
 ---
 
+###dataset#2
 **142 * 4500 * 64 time-aware Web service QoS dataset**
 
 ---
@@ -39,5 +42,6 @@ location information
 - [Prof. Mingdong Tang](http://dblp.uni-trier.de/pers/hd/t/Tang:Mingdong) (HNUST) for contributing the AS information of the users and services 
 
 
-###Copyright &copy;
-Permission is granted for anyone to copy, use, or modify this dataset and accompanying documents for any purpose, provided this copyright notice is retained and prominently displayed, along with a note saying that the original data are available from our web page (https://wsdream.github.io). All use of these data is entirely at the user's own risk.
+###Copyright &copy; [WS-DREAM Team](http://wsdream.github.io), CUHK
+Permission is granted for anyone to copy, use, or modify this dataset and accompanying documents for any purpose, provided this copyright notice is retained and prominently displayed, along with a note saying that the original data are available from our web page (https://wsdream.github.io).
+

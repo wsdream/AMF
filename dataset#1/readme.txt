@@ -1,6 +1,7 @@
-----------------------------------------------------------------------------
-README file for 339 * 5825 Web service QoS dataset
-----------------------------------------------------------------------------
+****************************************************************************
+* README file for 339 * 5825 Web service QoS dataset
+* Last updated: 2015/08/14 
+****************************************************************************
 
 This dataset describes real-world QoS evaluation results from 339 users on 
 5,825 Web services. Note that we have recently updated the location 
@@ -8,9 +9,9 @@ information (e.g., IP, AS, Latitude, Longitude) of users and services into
 the dataset. It is available for downloading at: 
 http://wsdream.github.io/dataset/wsrec_dataset1
 
-----------------------------------------------------------------------------
+****************************************************************************
 List of contents of the dataset
-----------------------------------------------------------------------------
+****************************************************************************
 
 userlist.txt  - information of 339 service users. Format: | User ID |  
                 IP Address | Country | Continent | AS | Latitude | Longitude |
@@ -22,9 +23,9 @@ rtMatrix.txt  - 339 * 5825 user-item matrix of response-time.
 tpMatrix.txt  - 339 * 5825 user-item matrix for throughput.
 readme.txt    - descriptions of the dataset. 
 
-----------------------------------------------------------------------------
+****************************************************************************
 Reference paper
-----------------------------------------------------------------------------
+****************************************************************************
 
 Please refer to the following papers for the detailed descriptions of this 
 dataset:
@@ -40,21 +41,21 @@ dataset:
 IF YOU USE THIS DATASET IN PUBLISHED RESEARCH, PLEASE CITE EITHER OF THE ABOVE 
 PAPERS. THANKS!
 
-----------------------------------------------------------------------------
+****************************************************************************
 Acknowledgements
-----------------------------------------------------------------------------
+****************************************************************************
 
 We would like to thank PlanetLab (http://www.planet-lab.org/) for collecting 
 the dataset, and IPLocation (http://www.iplocation.net/) for collecting the 
 location information. We also thank Prof. Mingdong Tang (HNUST) for 
 contributing the AS information of the users and services. 
 
-----------------------------------------------------------------------------
-Copyright
-----------------------------------------------------------------------------
+****************************************************************************
+Copyright (c) WS-DREAM Team, CUHK
+****************************************************************************
 
-Our datasets are freely available for research purposes. Downloading and 
-using the dataset will indicate your acceptance to enter into a GNU General 
-Public License agreement. Redistribution of this dataset to any other third 
-party or over the Web is not permitted.
+Permission is granted for anyone to copy, use, or modify this dataset and 
+accompanying documents for any purpose, provided this copyright notice is 
+retained and prominently displayed, along with a note saying that the 
+original data are available from our web page (https://wsdream.github.io).
 

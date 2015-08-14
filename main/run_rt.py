@@ -30,8 +30,8 @@ para = {'dataType': 'rt', # choose 'rt' for response-time prediction
         'dataPath': '../data/dataset#2/',
         'outPath': 'result/raw/',
         'metrics': ['MAE', 'NMAE', 'RMSE', 'MRE', 'NPRE'], # delete where appropriate       
-        'density': list(np.arange(0.05, 0.51, 0.05)), # matrix density
-        'rounds': 20, # how many runs are performed at each matrix density
+        'density': list(np.arange(0.05, 0.31, 0.05)), # matrix density
+        'rounds': 1, # how many runs are performed at each matrix density
         'dimension': 10, # dimenisionality of the latent factors
         'eta': 0.8, # learning rate
         'lambda': 0.0003, # regularization parameter

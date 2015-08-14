@@ -78,9 +78,9 @@ AMF/
                                   matrix density = 5%
       - [...]                   - many other results
 
-----------------------------------------------------------------------------
+****************************************************************************
 Usage of this package
-----------------------------------------------------------------------------
+****************************************************************************
 
 For ease of reproducing and compare with other approaches, we provide the 
 detailed experimental results with five metrics (MAE, NMAE, RMSE, MRE, NPRE), 

@@ -1,9 +1,11 @@
-----------------------------------------------------------------------------
-README file for AMF
-----------------------------------------------------------------------------
+****************************************************************************
+*                                                                          *
+* README file for AMF                                                      *
+*                                                                          *
+****************************************************************************
 
 Author: Jamie Zhu <jimzhu@GitHub>
-Last updated: 2015/07/29.
+Last updated: 2015/08/14.
 
 This package implements an online QoS prediction approach, adaptive matrix 
 factorization (AMF), presented in the work [Zhu et al., ICDCS'14].

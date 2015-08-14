@@ -4,16 +4,14 @@ This repository maintains a set of publicly available datasets collected from re
 
 For more available datasets, please visit:
 - WS-DREAM QoS datasets: http://www.wsdream.net/dataset.html.
-- FSE'13 reliability data: http://ccl.fer.hr/wordpress/people/research-assistants/marin-silic/clus-evaluation-dataset
 - WWW'14 QoS dataset: http://www.service4all.org.cn/servicexchange
-
+- FSE'13 [reliability data](http://ccl.fer.hr/wordpress/people/research-assistants/marin-silic/clus-evaluation-dataset)
 
 ---
 
 ###dataset#1
-**339 * 5825 Web service QoS dataset**
 
----
+**339 * 5825 Web service QoS dataset**
 
 This dataset describes real-world QoS evaluation results from 339 users on 
 5,825 Web services. Note that we have recently updated the location 
@@ -27,13 +25,12 @@ http://wsdream.github.io/dataset/wsrec_dataset1
 ###dataset#2
 **142 * 4500 * 64 time-aware Web service QoS dataset**
 
----
-
 This dataset describes real-world QoS evaluation results from 142 users on 
 4,500 Web services over 64 different time slices (at 15-minute interval). 
 The dataset is available for downloading at: 
 http://wsdream.github.io/dataset/wsrec_dataset2
 
+---
 
 ###Acknowledgements
 - PlanetLab (http://www.planet-lab.org/) for use to collect the dataset

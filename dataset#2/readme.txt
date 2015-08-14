@@ -37,7 +37,7 @@ IF YOU USE THIS DATASET IN PUBLISHED RESEARCH, PLEASE CITE THE ABOVE PAPER.
 THANKS!
 
 ****************************************************************************
-Copyright (c) WS-DREAM Team, CUHK
+Copyright (c) WS-DREAM Team, CUHK 
 ****************************************************************************
 
 Permission is granted for anyone to copy, use, or modify this dataset and 

@@ -113,10 +113,8 @@ issue page (https://github.com/wsdream/AMF/issues). We will help ASAP. In
 addition, we will appreciate any contribution to refine this package.
 
 ****************************************************************************
-Copyright
+Copyright (c) WS-DREAM Team, CUHK
 ****************************************************************************
-
-Copyright (c) WS-DREAM Team, CUHK (http://wsdream.github.io).
 
 Permission is granted for anyone to copy, use, modify, or distribute this 
 program and accompanying programs and documents for any purpose, provided 

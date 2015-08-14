@@ -22,7 +22,7 @@ Read more information from our paper:
 
 The benchmarks are implemented with a combination of Python and C++. The framework is built on Python for simplicity, and the core functions of each algorithm are written in C++ for efficiency consideration. To achieve so, [Cython](http://cython.org/ "Cython's Web page") (a language to write C/C++ extensions for Python) has been employed to compile the C++ extensions to Python-compatible modules. 
 
->Note: Our code is directly executable on Linux platform. Re-compilation with Cython is required to execute them on Windows platform: See [how to run on Windows](https://github.com/wsdream/WSRec#usage).
+**Note**: Our code is directly executable on Linux platform. Re-compilation with Cython is required to execute them on Windows platform: See [how to run on Windows](https://github.com/wsdream/WSRec#usage).
 
 
 ###Feedback

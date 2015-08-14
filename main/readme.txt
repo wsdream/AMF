@@ -1,18 +1,15 @@
 ****************************************************************************
-*                                                                          *
-* README file for AMF                                                      *
-*                                                                          *
+* README file for AMF  
+* Author: Jamie Zhu <jimzhu@GitHub>
+* Last updated: 2015/08/14.          
 ****************************************************************************
-
-Author: Jamie Zhu <jimzhu@GitHub>
-Last updated: 2015/08/14.
 
 This package implements an online QoS prediction approach, adaptive matrix 
 factorization (AMF), presented in the work [Zhu et al., ICDCS'14].
 
-----------------------------------------------------------------------------
+****************************************************************************
 Reference and citation
-----------------------------------------------------------------------------
+****************************************************************************
 
 Please refer to the following paper for the detailed description of the 
 implemented algorithm:
@@ -24,9 +21,9 @@ implemented algorithm:
 IF YOU USE THIS PACKAGE IN PUBLISHED RESEARCH, PLEASE CITE THE ABOVE PAPER. 
 THANKS!
 
-----------------------------------------------------------------------------
+****************************************************************************
 Dependencies
-----------------------------------------------------------------------------
+****************************************************************************
 
 - Python 2.7 (https://www.python.org)
 - Cython 0.20.1 (http://cython.org)
@@ -46,9 +43,9 @@ modify the c++ source files and want to re-compile them.
 It is worth noting that our implementation is also based on numpy and scipy 
 packages, so you would also need to install these packages first.
 
-----------------------------------------------------------------------------
+****************************************************************************
 Contents of this package
-----------------------------------------------------------------------------
+****************************************************************************
 
 AMF/
   - run_rt.py                   - script file for running the experiments on 
@@ -76,7 +73,7 @@ AMF/
                                   for building core.so
   - result/                     - directory for storing evaluation results
                                   available metrics: (MAE, NMAE, RMSE, MRE, NPRE)
-	    - raw/                    - the raw results obtained over each time slice
+      - raw/                    - the raw results obtained over each time slice
       - avg_rtResult_0.05.txt   - E.g., the response-time prediction result under 
                                   matrix density = 5%
       - [...]                   - many other results
@@ -107,19 +104,19 @@ platforms, we has only tested the current version on Linux.
 
 >> python setup.py build_ext --inplace
 
-----------------------------------------------------------------------------
+****************************************************************************
 Issues
-----------------------------------------------------------------------------
+****************************************************************************
 
 In case of questions or problems, please do not hesitate to report to our 
 issue page (https://github.com/wsdream/AMF/issues). We will help ASAP. In 
 addition, we will appreciate any contribution to refine this package.
 
-----------------------------------------------------------------------------
+****************************************************************************
 Copyright
-----------------------------------------------------------------------------
+****************************************************************************
 
-Copyright (c) WS-DREAM@GitHub, CUHK.
+Copyright (c) WS-DREAM Team, CUHK (http://wsdream.github.io).
 
 Permission is granted for anyone to copy, use, modify, or distribute this 
 program and accompanying programs and documents for any purpose, provided 

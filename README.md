@@ -1,6 +1,6 @@
 ##AMF
 
-This repository maintains the implementation of an adaptive matrix factorization approach to online QoS prediction of cloud services, which has been published in ICDCS'14.
+This repository maintains the implementation of an adaptive matrix factorization approach to online QoS prediction of cloud services, which has been published in ICDCS'2014.
 
 Read more information from our paper: 
 
@@ -29,8 +29,6 @@ The benchmarks are implemented with a combination of Python and C++. The framewo
 For bugs and feedback, please post to [our issue page](https://github.com/wsdream/AMF/issues). For any other enquires, please drop an email to our team (wsdream.maillist@gmail.com).
 
 
-###Copyright &copy;
-[WS-DREAM Team](http://wsdream.github.io), CUHK
-
+###Copyright &copy; [WS-DREAM Team](http://wsdream.github.io), CUHK
 Permission is granted for anyone to copy, use, modify, or distribute this program and accompanying programs and documents for any purpose, provided this copyright notice is retained and prominently displayed, along with a note saying that the original programs are available from our web page (https://wsdream.github.io). The program is provided as-is, and there are no guarantees that it fits your purposes or that it is bug-free. All use of these programs is entirely at the user's own risk.
 

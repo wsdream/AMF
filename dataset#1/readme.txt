@@ -1,6 +1,6 @@
 ****************************************************************************
 * README file for 339 * 5825 Web service QoS dataset
-* Last updated: 2015/08/14 
+* Last updated: 2015/08/29
 ****************************************************************************
 
 This dataset describes real-world QoS evaluation results from 339 users on 
@@ -51,11 +51,10 @@ location information. We also thank Prof. Mingdong Tang (HNUST) for
 contributing the AS information of the users and services. 
 
 ****************************************************************************
-Copyright (c) WS-DREAM Team, CUHK
+License
 ****************************************************************************
 
-Permission is granted for anyone to copy, use, or modify this dataset and 
-accompanying documents for any purpose, provided this copyright notice is 
-retained and prominently displayed, along with a note saying that the 
-original data are available from our web page (https://wsdream.github.io).
+The MIT License (MIT)
+
+Copyright (c) 2015, WS-DREAM, CUHK (https://wsdream.github.io)
 

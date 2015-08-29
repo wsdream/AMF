@@ -39,6 +39,9 @@ location information
 - [Prof. Mingdong Tang](http://dblp.uni-trier.de/pers/hd/t/Tang:Mingdong) (HNUST) for contributing the AS information of the users and services 
 
 
-###Copyright &copy; [WS-DREAM Team](http://wsdream.github.io), CUHK
-Permission is granted for anyone to copy, use, or modify this dataset and accompanying documents for any purpose, provided this copyright notice is retained and prominently displayed, along with a note saying that the original data are available from our web page (https://wsdream.github.io).
+###License 
+
+The MIT License (MIT)
+
+Copyright &copy; 2015, [WS-DREAM](https://wsdream.github.io), CUHK
 

@@ -1,6 +1,6 @@
 ****************************************************************************
 * README file for 142 * 4500 * 64 time-aware Web service QoS dataset
-* Last updated: 2015/08/14.
+* Last updated: 2015/08/29
 ****************************************************************************
 
 This dataset describes real-world QoS evaluation results from 142 users on 
@@ -37,11 +37,10 @@ IF YOU USE THIS DATASET IN PUBLISHED RESEARCH, PLEASE CITE THE ABOVE PAPER.
 THANKS!
 
 ****************************************************************************
-Copyright (c) WS-DREAM Team, CUHK 
+License
 ****************************************************************************
 
-Permission is granted for anyone to copy, use, or modify this dataset and 
-accompanying documents for any purpose, provided this copyright notice is 
-retained and prominently displayed, along with a note saying that the 
-original data are available from our web page (https://wsdream.github.io).
+The MIT License (MIT)
+
+Copyright (c) 2015, WS-DREAM, CUHK (https://wsdream.github.io)
 

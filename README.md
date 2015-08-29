@@ -20,8 +20,6 @@ the dataset. It is available for downloading at:
 http://wsdream.github.io/dataset/wsrec_dataset1
 
 
----
-
 ###dataset#2
 **142 * 4500 * 64 time-aware Web service QoS dataset**
 
@@ -32,14 +30,15 @@ http://wsdream.github.io/dataset/wsrec_dataset2
 
 ---
 
-###Acknowledgements
+##Acknowledgements
 - PlanetLab (http://www.planet-lab.org/) for use to collect the dataset
 - IPLocation (http://www.iplocation.net/) for use to collect the 
 location information
 - [Prof. Mingdong Tang](http://dblp.uni-trier.de/pers/hd/t/Tang:Mingdong) (HNUST) for contributing the AS information of the users and services 
 
 
-**License**: The MIT License (MIT)
+##License
+The MIT License (MIT)
 
 Copyright &copy; 2015, [WS-DREAM](https://wsdream.github.io), CUHK
 

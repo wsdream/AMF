@@ -39,9 +39,7 @@ location information
 - [Prof. Mingdong Tang](http://dblp.uni-trier.de/pers/hd/t/Tang:Mingdong) (HNUST) for contributing the AS information of the users and services 
 
 
-###License 
-
-The MIT License (MIT)
+**License**: The MIT License (MIT)
 
 Copyright &copy; 2015, [WS-DREAM](https://wsdream.github.io), CUHK
 

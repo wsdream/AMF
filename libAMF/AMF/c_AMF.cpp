@@ -14,7 +14,7 @@
 #include <algorithm>
 #include <ctime>
 #include <cstdlib>
-#include "AMF.h"
+#include "c_AMF.h"
 using namespace std;
 
 const double EPS = 1e-8;
@@ -34,12 +34,6 @@ void AMF(double *removedData, int numUser, int numService, int dim, double lmda,
     double **U = vector2Matrix(Udata, numUser, dim);
     double **S = vector2Matrix(Sdata, numService, dim);
     double **predMatrix = vector2Matrix(predData, numUser, numService);
-
-    // --- create 2D matrix
-    double **lastU = createMatrix(numUser, dim);
-    double **lastS = createMatrix(numService, dim);
-    copyMatrix(lastU, U, numUser, dim);
-    copyMatrix(lastS, S, numService, dim);
 
     // --- transform removedMatrix into samples
     vector<pair<int, int> > spIndex;
@@ -62,23 +56,23 @@ void AMF(double *removedData, int numUser, int numService, int dim, double lmda,
     long double eij, wi, wj;
     vector<long double> eu(numUser, 1), es(numService, 1);
     srand(time(NULL));
-    while(lossValue > convergeThreshold || iter < minIter) {
-        // re-initialize U and S and restart iteration, if not converged
-        if (iter >= maxIter && restart < 10) {
-            iter = 0;
-            restart++;               
-            for (int k = 0; k < dim; k++) {
-                for (int a = 0; a < numUser; a++) {
-                    U[a][k] = ((double) rand()) / RAND_MAX;
-                }
-                for (int b = 0; b < numService; b++) {
-                    S[b][k] = ((double) rand()) / RAND_MAX;
-                }
-            }
-            cout.setf(ios::fixed);            
-            cout << currentDateTime() << ": ";
-            cout << "re-initialize and restart..." << endl;                          
-        }
+    while(lossValue > convergeThreshold && iter < maxIter) { //|| iter < minIter
+        // // re-initialize U and S and restart iteration, if not converged
+        // if (iter >= maxIter && restart < 10) {
+        //     iter = 0;
+        //     restart++;               
+        //     for (int k = 0; k < dim; k++) {
+        //         for (int a = 0; a < numUser; a++) {
+        //             U[a][k] = ((double) rand()) / RAND_MAX;
+        //         }
+        //         for (int b = 0; b < numService; b++) {
+        //             S[b][k] = ((double) rand()) / RAND_MAX;
+        //         }
+        //     }
+        //     cout.setf(ios::fixed);            
+        //     cout << currentDateTime() << ": ";
+        //     cout << "re-initialize and restart..." << endl;                          
+        // }
         
         // one iteration
         for (int s = 0; s < numSample; s++) {
@@ -128,8 +122,6 @@ void AMF(double *removedData, int numUser, int numService, int dim, double lmda,
     // update predMatrix
     getPredMatrix(true, removedMatrix, U, S, numUser, numService, dim, predMatrix);
 
-    delete2DMatrix(lastU);
-    delete2DMatrix(lastS);
     delete ((char*) U);
     delete ((char*) S);
     delete ((char*) removedMatrix);

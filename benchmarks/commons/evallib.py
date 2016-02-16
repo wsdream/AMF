@@ -59,9 +59,9 @@ def removeEntries(matrix, density, roundId):
 #======================================================#
 # Function to compute the evaluation metrics
 #======================================================#
-def errMetric(realVec, estiVec, metrics):
+def errMetric(realVec, predVec, metrics):
     result = []
-    absError = np.abs(estiVec - realVec) 
+    absError = np.abs(predVec - realVec) 
     mae = np.sum(absError)/absError.shape
     for metric in metrics:
         if 'MAE' == metric:
@@ -74,12 +74,12 @@ def errMetric(realVec, estiVec, metrics):
             result = np.append(result, rmse)
         if 'MRE' == metric or 'NPRE' == metric:
             relativeError = absError / realVec
+            relativeError = np.sort(relativeError)
             if 'MRE' == metric:
-                mre = np.average(relativeError)
+                mre = np.median(relativeError)
                 result = np.append(result, mre)
             if 'NPRE' == metric:
-                relativeError = np.sort(relativeError)
-                npre = relativeError[int(np.floor(0.9 * relativeError.shape[0]))] 
+                npre = relativeError[np.floor(0.9 * relativeError.shape[0])] 
                 result = np.append(result, npre)
     return result
 

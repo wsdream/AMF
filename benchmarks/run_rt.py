@@ -21,7 +21,7 @@ para = {'dataPath': '../data/',
         'dataType': 'rt', # set the dataType as 'rt' or 'tp'
         'outPath': 'result/',
         'metrics': ['MAE', 'MRE', 'NPRE'], # delete where appropriate      
-        'density': np.arange(0.05, 0.06, 0.05), # matrix density
+        'density': np.arange(0.05, 0.31, 0.05), # matrix density
         'rounds': 1, # how many runs are performed at each matrix density
         'dimension': 10, # dimenisionality of the latent factors
         'eta': 0.8, # learning rate
@@ -29,7 +29,7 @@ para = {'dataPath': '../data/',
         'maxIter': 50, # the max iterations
         'convergeThreshold': 7e-3, # stopping criteria for convergence
         'beta': 0.3, # the controlling weight of exponential moving average
-        'saveTimeInfo': False, # whether to keep track of the running time
+        'saveTimeInfo': True, # whether to keep track of the running time
         'saveLog': True, # whether to save log into file
         'debugMode': False, # whether to record the debug info
         'parallelMode': True # whether to leverage multiprocessing for speedup
@@ -43,7 +43,7 @@ logger.info('AMF: Adaptive Matrix Factorization [TPDS]')
 
 # load the dataset
 dataTensor = dataloader.load(para)
-# dataTensor = dataTensor[0:50][0:50][0:50]
+
 # evaluate QoS prediction algorithm
 evaluator.execute(dataTensor, para)
 

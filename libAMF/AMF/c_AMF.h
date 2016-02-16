@@ -46,5 +46,3 @@ void copyMatrix(double **M1, double **M2, int row, int col);
 
 /* Get current data/time, format is YYYY-MM-DD hh:mm:ss */
 const string currentDateTime();
-
-

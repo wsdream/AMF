@@ -14,7 +14,7 @@
 #include <algorithm>
 #include <ctime>
 #include <cstdlib>
-#include "c_AMF.h"
+#include "AMF.h"
 using namespace std;
 
 const double EPS = 1e-8;
@@ -64,21 +64,21 @@ void AMF(double *removedData, int numUser, int numService, int dim, double lmda,
     srand(time(NULL));
     while(lossValue > convergeThreshold || iter < minIter) {
         // re-initialize U and S and restart iteration, if not converged
-        // if (iter >= maxIter && restart < 10) {
-        //     iter = 0;
-        //     restart++;               
-        //     for (int k = 0; k < dim; k++) {
-        //         for (int a = 0; a < numUser; a++) {
-        //             U[a][k] = ((double) rand()) / RAND_MAX;
-        //         }
-        //         for (int b = 0; b < numService; b++) {
-        //             S[b][k] = ((double) rand()) / RAND_MAX;
-        //         }
-        //     }
-        //     cout.setf(ios::fixed);            
-        //     cout << currentDateTime() << ": ";
-        //     cout << "re-initialize and restart..." << endl;                          
-        // }
+        if (iter >= maxIter && restart < 10) {
+            iter = 0;
+            restart++;               
+            for (int k = 0; k < dim; k++) {
+                for (int a = 0; a < numUser; a++) {
+                    U[a][k] = ((double) rand()) / RAND_MAX;
+                }
+                for (int b = 0; b < numService; b++) {
+                    S[b][k] = ((double) rand()) / RAND_MAX;
+                }
+            }
+            cout.setf(ios::fixed);            
+            cout << currentDateTime() << ": ";
+            cout << "re-initialize and restart..." << endl;                          
+        }
         
         // one iteration
         for (int s = 0; s < numSample; s++) {
@@ -259,6 +259,5 @@ const string currentDateTime()
 
     return buf;
 }
-
 
 

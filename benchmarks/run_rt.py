@@ -27,7 +27,7 @@ para = {'dataPath': '../data/',
         'eta': 0.8, # learning rate
         'lambda': 0.0003, # regularization parameter
         'maxIter': 50, # the max iterations
-        'convergeThreshold': 3e-3, # stopping criteria for convergence
+        'convergeThreshold': 4e-3, # stopping criteria for convergence
         'beta': 0.3, # the controlling weight of exponential moving average
         'saveTimeInfo': False, # whether to keep track of the running time
         'saveLog': True, # whether to save log into file

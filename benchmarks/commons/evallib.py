@@ -170,6 +170,7 @@ def saveSummaryResult(outfile, result, timeinfo, para):
 
     if para['saveTimeInfo']:
         fileID = open(outfile + '_time.txt', 'w')
+        fileID.write('======== Summary ========\n')
         fileID.write('Average running time (second):\n')
         k = 0
         for den in para['density']:
@@ -178,6 +179,16 @@ def saveSummaryResult(outfile, result, timeinfo, para):
             fileID.write('density=%.2f: '%den)
             np.savetxt(fileID, np.matrix(np.average(timeResults)), fmt='%.4f', delimiter='  ')
             k += 1
+        
+        fileID.write('\n======== Details ========\n')
+        k = 0
+        for den in para['density']:
+            den_time = timeinfo[k, :, :]
+            fileID.write('[density=%.2f]\n'%den)
+            np.savetxt(fileID, np.matrix(np.average(den_time, axis=0)).T, fmt='%.4f', delimiter='  ')
+            fileID.write('\n')
+            k += 1
+
         fileID.close()
 
 

@@ -55,11 +55,12 @@ void AMF(double *removedData, int numUser, int numService, int dim, double lmda,
     double rValue, lossValue = 1e10, gradU, gradS;
     long double eij, wi, wj;
     vector<long double> eu(numUser, 1), es(numService, 1);
+    srand(time(NULL));
 
     while(lossValue > convergeThreshold || iter < minIter) { 
         // re-initialize U and S and restart iteration, if not converged
         if (iter >= maxIter) {
-            if (restart < 10) {
+            if (restart < 5) {
             iter = 0;
             restart++;               
             for (int k = 0; k < dim; k++) {

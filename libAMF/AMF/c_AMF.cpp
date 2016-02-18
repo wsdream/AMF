@@ -51,12 +51,32 @@ void AMF(double *removedData, int numUser, int numService, int dim, double lmda,
     // --- iterate by standard gradient descent algorithm
     SAMPLE spInstance;
     int iter = 0, minIter = 30, restart = 0;
-    int i, j, spId;
+    int i, j;
     double rValue, lossValue = 1e10, gradU, gradS;
     long double eij, wi, wj;
     vector<long double> eu(numUser, 1), es(numService, 1);
 
-    while(lossValue > convergeThreshold && iter < maxIter) {  
+    while(lossValue > convergeThreshold || iter < minIter) { 
+        // re-initialize U and S and restart iteration, if not converged
+        if (iter >= maxIter) {
+            if (restart < 10) {
+            iter = 0;
+            restart++;               
+            for (int k = 0; k < dim; k++) {
+                for (int a = 0; a < numUser; a++) {
+                    U[a][k] = ((double) rand()) / RAND_MAX;
+                }
+                for (int b = 0; b < numService; b++) {
+                    S[b][k] = ((double) rand()) / RAND_MAX;
+                }
+            }
+            cout.setf(ios::fixed);            
+            cout << currentDateTime() << ": ";
+            cout << "re-initialize and restart..." << endl;
+            }
+            else break;                       
+        }
+
         // random shuffle of samples
         srand(time(NULL));
         random_shuffle(samples.begin(), samples.end());

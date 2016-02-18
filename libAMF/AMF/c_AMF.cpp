@@ -61,19 +61,16 @@ void AMF(double *removedData, int numUser, int numService, int dim, double lmda,
         // re-initialize U and S and restart iteration, if not converged
         if (iter >= maxIter) {
             if (restart < 5) {
-            iter = 0;
-            restart++;               
-            for (int k = 0; k < dim; k++) {
-                for (int a = 0; a < numUser; a++) {
-                    U[a][k] = ((double) rand()) / RAND_MAX;
+                iter = 0;
+                restart++;               
+                for (int k = 0; k < dim; k++) {
+                    for (int a = 0; a < numUser; a++) {
+                        U[a][k] = ((double) rand()) / RAND_MAX;
+                    }
+                    for (int b = 0; b < numService; b++) {
+                        S[b][k] = ((double) rand()) / RAND_MAX;
+                    }
                 }
-                for (int b = 0; b < numService; b++) {
-                    S[b][k] = ((double) rand()) / RAND_MAX;
-                }
-            }
-            cout.setf(ios::fixed);            
-            cout << currentDateTime() << ": ";
-            cout << "re-initialize and restart..." << endl;
             }
             else break;                       
         }

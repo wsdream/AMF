@@ -17,6 +17,7 @@
 #include "c_AMF.h"
 using namespace std;
 
+typedef pair<pair<int, int>, double> SAMPLE;
 const double EPS = 1e-8;
 
 
@@ -35,52 +36,35 @@ void AMF(double *removedData, int numUser, int numService, int dim, double lmda,
     double **S = vector2Matrix(Sdata, numService, dim);
     double **predMatrix = vector2Matrix(predData, numUser, numService);
 
-    // --- transform removedMatrix into samples
-    vector<pair<int, int> > spIndex;
-    vector<double> spValue;   
-    int numSample = 0;
-    for (int i = 0; i < numUser; i++) { 
-        for (int j = 0; j < numService; j++) {       
+    // --- transform removedMatrix into tuple samples
+    vector<SAMPLE> samples; 
+    for (int i = 0; i < numUser; i++) {
+        for (int j = 0; j < numService; j++) {
             if (fabs(removedMatrix[i][j]) > EPS) {
-                spIndex.push_back(make_pair(i, j));
-                spValue.push_back(removedMatrix[i][j]);
-                numSample++;
+                samples.push_back(make_pair(make_pair(i, j), removedMatrix[i][j]));
             }
         }
     }
 
     // --- iterate by standard gradient descent algorithm
+    SAMPLE spInstance;
     int iter = 0, minIter = 30, restart = 0;
     int i, j, spId;
     double rValue, lossValue = 1e10, gradU, gradS;
     long double eij, wi, wj;
     vector<long double> eu(numUser, 1), es(numService, 1);
-    srand(time(NULL));
-    while(lossValue > convergeThreshold && iter < maxIter) { //|| iter < minIter
-        // // re-initialize U and S and restart iteration, if not converged
-        // if (iter >= maxIter && restart < 10) {
-        //     iter = 0;
-        //     restart++;               
-        //     for (int k = 0; k < dim; k++) {
-        //         for (int a = 0; a < numUser; a++) {
-        //             U[a][k] = ((double) rand()) / RAND_MAX;
-        //         }
-        //         for (int b = 0; b < numService; b++) {
-        //             S[b][k] = ((double) rand()) / RAND_MAX;
-        //         }
-        //     }
-        //     cout.setf(ios::fixed);            
-        //     cout << currentDateTime() << ": ";
-        //     cout << "re-initialize and restart..." << endl;                          
-        // }
-        
+    
+    while(lossValue > convergeThreshold && iter < maxIter) {  
+        // random shuffle of samples
+        srand(time(NULL));
+        random_shuffle(samples.begin(), samples.end());
+
         // one iteration
         for (int s = 0; s < numSample; s++) {
-            // random sampling
-            spId = rand() % numSample;
-            i = spIndex[spId].first;
-            j = spIndex[spId].second;
-            rValue = spValue[spId];
+            spInstance = samples[s];
+            i = spInstance.first.first;
+            j = spInstance.first.second;
+            rValue = spInstance.second;
 
             // confidence updates
             long double uv = dotProduct(U[i], S[j], dim);

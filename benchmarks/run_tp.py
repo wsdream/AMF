@@ -21,18 +21,18 @@ para = {'dataPath': '../data/',
         'dataType': 'tp', # set the dataType as 'rt' or 'tp'
         'outPath': 'result/',
         'metrics': ['MAE', 'MRE', 'NPRE'], # delete where appropriate      
-        'density': np.arange(0.05, 0.06, 0.05), # matrix density
+        'density': np.arange(0.05, 0.51, 0.05), # matrix density
         'rounds': 1, # how many runs are performed at each matrix density
         'dimension': 10, # dimenisionality of the latent factors
         'eta': 0.8, # learning rate
         'lambda': 0.0002, # regularization parameter
         'maxIter': 50, # the max iterations
-        'convergeThreshold': 2.5e-3, # stopping criteria for convergence
+        'convergeThreshold': 3e-3, # stopping criteria for convergence
         'beta': 0.3, # the controlling weight of exponential moving average
         'saveTimeInfo': True, # whether to keep track of the running time
         'saveLog': True, # whether to save log into file
-        'debugMode': True, # whether to record the debug info
-        'parallelMode': False # whether to leverage multiprocessing for speedup
+        'debugMode': False, # whether to record the debug info
+        'parallelMode': True # whether to leverage multiprocessing for speedup
         }
 
 

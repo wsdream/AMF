@@ -37,11 +37,13 @@ void AMF(double *removedData, int numUser, int numService, int dim, double lmda,
     double **predMatrix = vector2Matrix(predData, numUser, numService);
 
     // --- transform removedMatrix into tuple samples
-    vector<SAMPLE> samples; 
+    vector<SAMPLE> samples;
+    int numSample = 0; 
     for (int i = 0; i < numUser; i++) {
         for (int j = 0; j < numService; j++) {
             if (fabs(removedMatrix[i][j]) > EPS) {
                 samples.push_back(make_pair(make_pair(i, j), removedMatrix[i][j]));
+                numSample++;
             }
         }
     }
@@ -53,7 +55,7 @@ void AMF(double *removedData, int numUser, int numService, int dim, double lmda,
     double rValue, lossValue = 1e10, gradU, gradS;
     long double eij, wi, wj;
     vector<long double> eu(numUser, 1), es(numService, 1);
-    
+
     while(lossValue > convergeThreshold && iter < maxIter) {  
         // random shuffle of samples
         srand(time(NULL));

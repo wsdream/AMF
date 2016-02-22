@@ -6,12 +6,10 @@
 description = 'libAMF - A python package to AMF'
 
 from distutils.core import setup, Extension
-# from setuptools import setup, find_packages
 import os
 import os.path
 import numpy
 from distutils.sysconfig import *
-# from distutils.util import *
 
 try:
    from distutils.command.build_py import build_py_2to3 \
@@ -64,18 +62,11 @@ else:
 
 packages=['libAMF']
 
-classifiers = ['Development Status :: 5 - Production/Stable',
-               'Intended Audience :: Science/Research',
+classifiers = ['Intended Audience :: Science/Research',
                'License :: OSI Approved :: MIT',
                'Programming Language :: C++',
                'Programming Language :: Python',
-               'Topic :: Scientific/Engineering :: Artificial Intelligence',
-               'Topic :: Scientific/Engineering :: Mathematics',
-               'Operating System :: POSIX :: Linux',
-               'Operating System :: POSIX :: BSD',
-               'Operating System :: MacOS',
-               'Operating System :: Microsoft :: Windows',
-               'Operating System :: POSIX'
+               'Topic :: Scientific/Engineering :: Artificial Intelligence'
                ]
 
 setup(name = 'libAMF',
@@ -84,9 +75,9 @@ setup(name = 'libAMF',
       description=description,
       author='WS-DREAM',
       author_email='wsdream.maillist@gmail.com',
-      packages=packages,#find_packages(exclude=['tests*']),
+      packages=packages,
       url='https://wsdream.github.io',
-      download_url='https://sourceforge.net/projects/mlpy/',
+      download_url='https://github.com/wsdream/AMF/archive/icdcs14-python.zip',
       license='MIT',
       classifiers=classifiers,
       cmdclass=cmdclass,

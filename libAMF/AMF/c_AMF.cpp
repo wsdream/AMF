@@ -55,7 +55,7 @@ void AMF(double *removedData, int numUser, int numService, int dim, double lmda,
     double rValue, lossValue = 1e10, gradU, gradS;
     long double eij, wi, wj;
     vector<long double> eu(numUser, 1), es(numService, 1);
-    srand(time(NULL));
+    srand((unsigned)time(NULL));
 
     while(lossValue > convergeThreshold || iter < minIter) { 
         // re-initialize U and S and restart iteration, if not converged
@@ -75,8 +75,7 @@ void AMF(double *removedData, int numUser, int numService, int dim, double lmda,
             else break;                       
         }
 
-        // random shuffle of samples
-        srand(time(NULL));
+        // random shuffle of sample
         random_shuffle(samples.begin(), samples.end());
 
         // one iteration

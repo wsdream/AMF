@@ -28,7 +28,8 @@ Usage of this package
 For ease of reproducing and compare with other approaches, we provide the 
 detailed experimental results with the metrics (MAE, MRE, NPRE), under the
 "result/" directory, after running the above QoS prediction approach on our
-dataset. In particular, each experiment is run for 20 times and the average result (including std value) is reported. These results can be directly used
+dataset. In particular, each experiment is run for 20 times and the average 
+result (including std value) is reported. These results can be directly used 
 for your research work.
 
 On the other hand, if you want to reproduce our experiments, you need to:
@@ -37,8 +38,9 @@ On the other hand, if you want to reproduce our experiments, you need to:
 
 >> python setup.py install --user
 
-2. Run our provided Python scripts "run_rt.py" and "run_tp.py". In particular, you can turn on the "parallelMode" in the config area for speedup if you use a 
-multi-core computer.
+2. Run our provided Python scripts "run_rt.py" and "run_tp.py". In particular,
+you can turn on the "parallelMode" in the config area for speedup if you use 
+a multi-core computer.
 
 >> python run_rt.py
 >> python run_tp.py

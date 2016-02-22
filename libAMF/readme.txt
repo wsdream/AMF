@@ -30,9 +30,9 @@ Dependencies
 - numpy 1.8.1 (http://www.scipy.org)
 - scipy 0.13.3 (http://www.scipy.org)
 
-The underlying implementation of libAMF is using C++. For ease of use, we wrap
-the implementations to a Python API using Cython. By doing so, we obtain a 
-large speedup than pure Python implementation. Cython is only required when 
+The underlying implementation of libAMF is using C++. For ease of use, we 
+wrap the implementations to a Python API using Cython. By doing so, we obtain 
+a large speedup than pure Python implementation. Cython is only required when 
 you modify the c++ source files and want to re-compile them. 
 
 It is worth noting that our implementation is also based on numpy and scipy 

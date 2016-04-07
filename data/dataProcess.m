@@ -17,8 +17,8 @@ fprintf('Data processing...\n');
 % --- create processedData folder
 if exist('processedData', 'dir') == 0
     system('mkdir processedData');
-    system('mkdir processedData/rtData');
-    system('mkdir processedData/tpData');
+    system('mkdir processedData\rtData');
+    system('mkdir processedData\tpData');
 end
 
 % --- process rt data

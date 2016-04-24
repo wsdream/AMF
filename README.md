@@ -1,18 +1,10 @@
 ##AMF
 
-This repository maintains the benchmark of an adaptive matrix factorization approach to online QoS prediction of cloud services, which has been published in ICDCS'2014.
+This repository maintains the implementation of an adaptive matrix factorization approach to online QoS prediction of cloud services, which has been published in ICDCS'2014.
 
 Read more information from our paper: 
 
->Jieming Zhu, Pinjia He, Zibin Zheng, and Michael R. Lyu, "**Towards Online, Accurate, and Scalable QoS Prediction for Runtime Service Adaptation**," *in Proc. of IEEE ICDCS*, 2014. [[Paper](http://jiemingzhu.github.io/pub/jmzhu_icdcs2014.pdf)][[Project page](http://wsdream.github.io/AMF)]
-
-
-###Related Links
-
-- [Publication list of Web service recommendation research](https://github.com/wsdream/pywsrec/blob/master/docs/paperlist.rst)
-
-- [WS-DREAM QoS datasets](https://github.com/wsdream/dataset)
-
+>Jieming Zhu, Pinjia He, Zibin Zheng, and Michael R. Lyu, "**Towards Online, Accurate, and Scalable QoS Prediction for Runtime Service Adaptation**," *in Proc. of IEEE ICDCS*, 2014. [[Paper](http://jiemingzhu.github.io/pub/jmzhu_icdcs2014.pdf)]
 
 ###Dependencies
 - Python 2.7 (https://www.python.org)
@@ -22,20 +14,19 @@ Read more information from our paper:
 
 ###Usage
 
-The benchmark is implemented as a Python package. For efficiency purpose, the core algorithm is written as Python extension using C++, and have been built into `libAMF` package for common use.
+The AMF algorithm is implemented in C++ and further wrapped up as a python package for common use.
 
-1. Install `libAMF` package
+1. Install `AMF` package
   
   Download the repo: `git clone https://github.com/wsdream/AMF.git`,
 
-  Check out branch: `git checkout icdcs14-python`,
+  (Optionally) Check out branch: `git checkout icdcs14-python`,
 
   Then install the package `python setup.py install --user`.    
 
-2. Read `benchmarks/readme.txt`
-3. Configure the parameters in benchmark script
+2. Change directory `cd` to `"benchmarks/"`, and configure the parameters in benchmark scripts
   
-  For example, in `run_rt.py`, you can config the `'parallelMode': True` if you are running a multi-core machine. You can also set `'rounds': 1` for testing, which make the execution finish soon.
+  For example, in `run_rt.py`, you can config the `'parallelMode': True` if you are running a multi-core machine. You can also set `'rounds': 1` for testing, which can make the execution finish soon.
 
 3. Run the benchmark scripts
      
@@ -43,7 +34,8 @@ The benchmark is implemented as a Python package. For efficiency purpose, the co
     $ python run_rt.py
     $ python run_tp.py 
     ```
-4. Check the evaluation results in "benchmarks/result/" directory. Note that the repository has maintained the results evaluated on [WS-DREAM datasets](https://github.com/wsdream/dataset), which are ready for immediate use.
+    
+4. Check the evaluation results in `"benchmarks/result/"` directory. Note that the repository has maintained the results evaluated on [WS-DREAM datasets](https://github.com/wsdream/dataset), which are ready for immediate use.
 
 
 ###Feedback

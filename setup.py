@@ -1,9 +1,11 @@
 #! /usr/bin/env python
-#
-# Copyright (C) 2016, WS-DREAM, CUHK
-# License: MIT
+'''
+  Copyright (C) 2016, WS-DREAM, CUHK
+  License: MIT
 
-description = 'libAMF - A python package to AMF'
+'''
+
+description = 'AMF - A python package to Adaptive Matrix Factorization'
 
 from distutils.core import setup, Extension
 import os
@@ -46,21 +48,21 @@ cmdclass = {'build_py': build_py}
 ext_modules = []
 if use_cython:
     cmdclass.update({'build_ext': build_ext})
-    ext_modules += [Extension("libAMF.AMF", 
-                              ["libAMF/AMF/c_AMF.cpp",
-                              "libAMF/AMF/AMF.pyx"],
+    ext_modules += [Extension("AMF.AMF", 
+                              ["AMF/c_AMF.cpp",
+                              "AMF/AMF.pyx"],
                               language='c++',
                               include_dirs=py_inc + np_inc)
                               ]
 
 else:
-    ext_modules += [Extension("libAMF.AMF", 
-                              ["libAMF/AMF/c_AMF.cpp",
-                              "libAMF/AMF/AMF.cpp"],
+    ext_modules += [Extension("AMF.AMF", 
+                              ["AMF/c_AMF.cpp",
+                              "AMF/AMF.cpp"],
                               include_dirs=py_inc + np_inc)
                               ]
 
-packages=['libAMF']
+packages=['AMF']
 
 classifiers = ['Intended Audience :: Science/Research',
                'License :: OSI Approved :: MIT',
@@ -69,15 +71,15 @@ classifiers = ['Intended Audience :: Science/Research',
                'Topic :: Scientific/Engineering :: Artificial Intelligence'
                ]
 
-setup(name = 'libAMF',
+setup(name = 'AMF',
       version='1.0',
       requires=['numpy (>=1.8.1)', 'scipy (>=0.13.3)'],
       description=description,
-      author='WS-DREAM',
+      author='WS-DREAM Team',
       author_email='wsdream.maillist@gmail.com',
       packages=packages,
-      url='https://wsdream.github.io',
-      download_url='https://github.com/wsdream/AMF/archive/icdcs14-python.zip',
+      url='http://wsdream.github.io',
+      download_url='https://github.com/wsdream/AMF',
       license='MIT',
       classifiers=classifiers,
       cmdclass=cmdclass,

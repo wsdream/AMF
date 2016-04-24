@@ -9,7 +9,7 @@ import numpy as np
 import time
 from utils import logger
 import evallib
-from libAMF import AMF
+import AMF
 from scipy import stats
 import multiprocessing
 

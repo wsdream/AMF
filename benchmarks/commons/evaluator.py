@@ -9,7 +9,7 @@ import numpy as np
 import time
 from utils import logger
 import evallib
-from libAMF import AMF
+import AMF
 from scipy import stats
 import multiprocessing
 
@@ -80,7 +80,7 @@ def executeOneSetting(tensor, density, roundId, para):
         outFile = '%s%s_%s_result_%02d_%.2f_round%02d.tmp'%(para['outPath'], 
             para['dataName'], para['dataType'], sliceId + 1, density, roundId + 1)
         evallib.dumpresult(outFile, result)
-        logger.info('SliceId = %02d done.'%(sliceId + 1))
+        logger.info('sliceId = %02d done.'%(sliceId + 1))
         
     logger.info('density=%.2f, %2d-round done.'%(density, roundId + 1))
     logger.info('----------------------------------------------')

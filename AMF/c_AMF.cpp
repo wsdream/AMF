@@ -17,6 +17,7 @@
 #include "c_AMF.h"
 using namespace std;
 
+typedef pair<pair<int, int>, double> SAMPLE;
 const double EPS = 1e-8;
 
 
@@ -35,58 +36,54 @@ void AMF(double *removedData, int numUser, int numService, int dim, double lmda,
     double **S = vector2Matrix(Sdata, numService, dim);
     double **predMatrix = vector2Matrix(predData, numUser, numService);
 
-    // --- create 2D matrix
-    double **lastU = createMatrix(numUser, dim);
-    double **lastS = createMatrix(numService, dim);
-    copyMatrix(lastU, U, numUser, dim);
-    copyMatrix(lastS, S, numService, dim);
-
-    // --- transform removedMatrix into samples
-    vector<pair<int, int> > spIndex;
-    vector<double> spValue;   
-    int numSample = 0;
-    for (int i = 0; i < numUser; i++) { 
-        for (int j = 0; j < numService; j++) {       
+    // --- transform removedMatrix into tuple samples
+    vector<SAMPLE> samples;
+    int numSample = 0; 
+    for (int i = 0; i < numUser; i++) {
+        for (int j = 0; j < numService; j++) {
             if (fabs(removedMatrix[i][j]) > EPS) {
-                spIndex.push_back(make_pair(i, j));
-                spValue.push_back(removedMatrix[i][j]);
+                samples.push_back(make_pair(make_pair(i, j), removedMatrix[i][j]));
                 numSample++;
             }
         }
     }
 
     // --- iterate by standard gradient descent algorithm
+    SAMPLE spInstance;
     int iter = 0, minIter = 30, restart = 0;
-    int i, j, spId;
+    int i, j;
     double rValue, lossValue = 1e10, gradU, gradS;
     long double eij, wi, wj;
     vector<long double> eu(numUser, 1), es(numService, 1);
-    srand(time(NULL));
-    while(lossValue > convergeThreshold || iter < minIter) {
+    srand((unsigned)time(NULL));
+
+    while(lossValue > convergeThreshold || iter < minIter) { 
         // re-initialize U and S and restart iteration, if not converged
-        // if (iter >= maxIter && restart < 10) {
-        //     iter = 0;
-        //     restart++;               
-        //     for (int k = 0; k < dim; k++) {
-        //         for (int a = 0; a < numUser; a++) {
-        //             U[a][k] = ((double) rand()) / RAND_MAX;
-        //         }
-        //         for (int b = 0; b < numService; b++) {
-        //             S[b][k] = ((double) rand()) / RAND_MAX;
-        //         }
-        //     }
-        //     cout.setf(ios::fixed);            
-        //     cout << currentDateTime() << ": ";
-        //     cout << "re-initialize and restart..." << endl;                          
-        // }
-        
+        if (iter >= maxIter) {
+            if (restart < 5) {
+                iter = 0;
+                restart++;               
+                for (int k = 0; k < dim; k++) {
+                    for (int a = 0; a < numUser; a++) {
+                        U[a][k] = ((double) rand()) / RAND_MAX;
+                    }
+                    for (int b = 0; b < numService; b++) {
+                        S[b][k] = ((double) rand()) / RAND_MAX;
+                    }
+                }
+            }
+            else break;                       
+        }
+
+        // random shuffle of sample
+        random_shuffle(samples.begin(), samples.end());
+
         // one iteration
         for (int s = 0; s < numSample; s++) {
-            // random sampling
-            spId = rand() % numSample;
-            i = spIndex[spId].first;
-            j = spIndex[spId].second;
-            rValue = spValue[spId];
+            spInstance = samples[s];
+            i = spInstance.first.first;
+            j = spInstance.first.second;
+            rValue = spInstance.second;
 
             // confidence updates
             long double uv = dotProduct(U[i], S[j], dim);
@@ -128,8 +125,6 @@ void AMF(double *removedData, int numUser, int numService, int dim, double lmda,
     // update predMatrix
     getPredMatrix(true, removedMatrix, U, S, numUser, numService, dim, predMatrix);
 
-    delete2DMatrix(lastU);
-    delete2DMatrix(lastS);
     delete ((char*) U);
     delete ((char*) S);
     delete ((char*) removedMatrix);
@@ -259,6 +254,5 @@ const string currentDateTime()
 
     return buf;
 }
-
 
 

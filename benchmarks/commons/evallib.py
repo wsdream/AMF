@@ -59,9 +59,9 @@ def removeEntries(matrix, density, roundId):
 #======================================================#
 # Function to compute the evaluation metrics
 #======================================================#
-def errMetric(realVec, estiVec, metrics):
+def errMetric(realVec, predVec, metrics):
     result = []
-    absError = np.abs(estiVec - realVec) 
+    absError = np.abs(predVec - realVec) 
     mae = np.sum(absError)/absError.shape
     for metric in metrics:
         if 'MAE' == metric:
@@ -74,12 +74,12 @@ def errMetric(realVec, estiVec, metrics):
             result = np.append(result, rmse)
         if 'MRE' == metric or 'NPRE' == metric:
             relativeError = absError / realVec
+            relativeError = np.sort(relativeError)
             if 'MRE' == metric:
-                mre = np.average(relativeError)
+                mre = np.median(relativeError)
                 result = np.append(result, mre)
             if 'NPRE' == metric:
-                relativeError = np.sort(relativeError)
-                npre = relativeError[int(np.floor(0.9 * relativeError.shape[0]))] 
+                npre = relativeError[np.floor(0.9 * relativeError.shape[0])] 
                 result = np.append(result, npre)
     return result
 
@@ -170,6 +170,7 @@ def saveSummaryResult(outfile, result, timeinfo, para):
 
     if para['saveTimeInfo']:
         fileID = open(outfile + '_time.txt', 'w')
+        fileID.write('======== Summary ========\n')
         fileID.write('Average running time (second):\n')
         k = 0
         for den in para['density']:
@@ -178,6 +179,16 @@ def saveSummaryResult(outfile, result, timeinfo, para):
             fileID.write('density=%.2f: '%den)
             np.savetxt(fileID, np.matrix(np.average(timeResults)), fmt='%.4f', delimiter='  ')
             k += 1
+        
+        fileID.write('\n======== Details ========\n')
+        k = 0
+        for den in para['density']:
+            den_time = timeinfo[k, :, :]
+            fileID.write('[density=%.2f]\n'%den)
+            np.savetxt(fileID, np.matrix(np.average(den_time, axis=0)).T, fmt='%.4f', delimiter='  ')
+            fileID.write('\n')
+            k += 1
+
         fileID.close()
 
 

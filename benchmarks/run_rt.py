@@ -8,7 +8,6 @@
 
 import numpy as np
 import os, sys, time
-import multiprocessing
 from commons.utils import logger
 from commons import utils
 from commons import evaluator
@@ -39,7 +38,7 @@ para = {'dataPath': '../data/',
 startTime = time.time() # start timing
 utils.setConfig(para) # set configuration
 logger.info('==============================================')
-logger.info('AMF: Adaptive Matrix Factorization [TPDS]')
+logger.info('AMF: Adaptive Matrix Factorization [ICDCS\'14]')
 
 # load the dataset
 dataTensor = dataloader.load(para)

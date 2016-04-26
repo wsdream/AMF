@@ -25,30 +25,57 @@ def evaluate(testMatrix, recoveredMatrix, para):
 
 
 #======================================================#
-# Function to remove the entries of data matrix
-# Return the trainMatrix and testMatrix
+# Function to remove the entries of data tensor
+# Return the trainTensor and the corresponding testTensor
 #======================================================#
-def removeEntries(matrix, density, roundId):
-    (vecX, vecY) = np.where(matrix > 0)
-    vecXY = np.c_[vecX, vecY]
-    numRecords = vecX.size
+def removeTensor(tensor, density, round, para):
+    numTime = tensor.shape[2]
+    trainTensor = np.zeros(tensor.shape)
+    testTensor = np.zeros(tensor.shape)
+    for i in range(numTime):
+        seedID = round + i * 100
+        (trainMatrix, testMatrix) = removeEntries(tensor[:, :, i], density, seedID)
+        trainTensor[:, :, i] = trainMatrix
+        testTensor[:, :, i] = testMatrix
+    return trainTensor, testTensor
+
+
+#======================================================#
+# Function to remove the entries of data matrix
+# which uses guassian random sampling
+# Return trainMatrix and testMatrix
+#======================================================#
+def removeEntries(matrix, density, seedID):
     numAll = matrix.size
-    seedId = roundId
-    random.seed(seedId)
-    randomSequence = range(0, numRecords)
-    random.shuffle(randomSequence) # one random sequence per round
     numTrain = int(numAll * density)
-    # by default, we set the remaining QoS records as testing data                     
-    numTest = numRecords - numTrain
-    trainXY = vecXY[randomSequence[0 : numTrain], :]
-    testXY = vecXY[randomSequence[- numTest :], :]
+    (vecX, vecY) = np.where(matrix > -1000)
+    np.random.seed(seedID % 100)
+    randPermut = np.random.permutation(numAll)  
+    np.random.seed(seedID)
+    randSequence = np.random.normal(0, numAll / 6.0, numAll * 10)
+
+    trainSet = []
+    flags = np.zeros(numAll)
+    for i in xrange(randSequence.shape[0]):
+        sample = int(abs(randSequence[i]))
+        if sample < numAll:
+            idx = randPermut[sample]
+            if flags[idx] == 0 and matrix[vecX[idx], vecY[idx]] > 0:
+                trainSet.append(idx)
+                flags[idx] = 1
+        if len(trainSet) == numTrain:
+            break
+    if len(trainSet) < numTrain:
+        logger.critical('Exit unexpectedly: not enough data for density = %.2f.', density)
+        sys.exit()
 
     trainMatrix = np.zeros(matrix.shape)
-    trainMatrix[trainXY[:, 0], trainXY[:, 1]] = matrix[trainXY[:, 0], trainXY[:, 1]]
+    trainMatrix[vecX[trainSet], vecY[trainSet]] = matrix[vecX[trainSet], vecY[trainSet]]
     testMatrix = np.zeros(matrix.shape)
-    testMatrix[testXY[:, 0], testXY[:, 1]] = matrix[testXY[:, 0], testXY[:, 1]]
+    testMatrix[matrix > 0] = matrix[matrix > 0]
+    testMatrix[vecX[trainSet], vecY[trainSet]] = 0
 
-    # ignore invalid testing data
+    # ignore invalid testing users or services             
     idxX = (np.sum(trainMatrix, axis=1) == 0)
     testMatrix[idxX, :] = 0
     idxY = (np.sum(trainMatrix, axis=0) == 0)

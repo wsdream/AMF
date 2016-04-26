@@ -10,7 +10,7 @@ import time
 from utils import logger
 import evallib
 import AMF
-from scipy import stats
+from scipy import stats, special
 import multiprocessing
 
 
@@ -41,8 +41,13 @@ def executeOneSetting(tensor, density, roundId, para):
     logger.info('density=%.2f, %2d-round starts.'%(density, roundId + 1))
     (numUser, numService, numTime) = tensor.shape
     dim = para['dimension']
+
+    # initialization
     U = np.random.rand(numUser, dim)
     S = np.random.rand(numService, dim)
+
+    # remove the entries of data to generate trainTensor and testTensor
+    (trainTensor, testTensor) = evallib.removeTensor(tensor, density, roundId, para)
 
     # run for each time slice
     for sliceId in xrange(numTime):
@@ -57,12 +62,24 @@ def executeOneSetting(tensor, density, roundId, para):
         transfMatrix[transfMatrix != -1] = (transfMatrix[transfMatrix != -1] - minV) / (maxV - minV)
 
         # remove data entries to generate trainMatrix and testMatrix  
-        seedID = roundId + sliceId * 100
-        (trainMatrix, testMatrix) = evallib.removeEntries(matrix, density, seedID)
+        # seedID = roundId + sliceId * 100
+        # (trainMatrix, testMatrix) = evallib.removeEntries(matrix, density, seedID)
+        trainMatrix = trainTensor[:, :, sliceId]
         trainMatrix = np.where(trainMatrix > 0, transfMatrix, 0)
+        testMatrix = testTensor[:, :, sliceId]
 
         (testVecX, testVecY) = np.where(testMatrix)     
         testVec = matrix[testVecX, testVecY]
+
+        # SVD initialization
+        # if sliceId == 0:
+        #     logitMatrix = np.where(trainMatrix > 0, special.logit(trainMatrix), 0)
+        #     [U, Sigma, S] = np.linalg.svd(logitMatrix)
+        #     Diag = np.diag(Sigma)
+        #     U = np.dot(U, Diag)[:, 0:dim].copy()
+        #     S = S[:, 0:dim].copy()
+        #     print U.shape
+        #     print S.shape
 
         # invocation to the prediction function
         startTime = time.clock() 

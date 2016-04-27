@@ -4,7 +4,7 @@ This repository maintains the implementation of an adaptive matrix factorization
 
 Read more information from our paper: 
 
->Jieming Zhu, Pinjia He, Zibin Zheng, and Michael R. Lyu, "**Towards Online, Accurate, and Scalable QoS Prediction for Runtime Service Adaptation**," *in Proc. of IEEE ICDCS*, 2014. [[Paper](http://jiemingzhu.github.io/pub/jmzhu_icdcs2014.pdf)]
+>Jieming Zhu, Pinjia He, Zibin Zheng, and Michael R. Lyu, "**Towards Online, Accurate, and Scalable QoS Prediction for Runtime Service Adaptation**," *in Proc. of the 34th IEEE International Conference on Distributed Computing Systems (ICDCS)*, 2014. [[Paper](http://jiemingzhu.github.io/pub/jmzhu_icdcs2014.pdf)]
 
 ###Dependencies
 - Python 2.7 (https://www.python.org)

@@ -184,7 +184,7 @@ def saveSummaryResult(outfile, result, timeinfo, para):
         k = 0
         for den in para['density']:
             den_time = timeinfo[k, :, :]
-            fileID.write('[density=%.2f]\n'%den)
+            fileID.write('[density=%.2f, %2d slices]\n'%(den, timeinfo.shape[2]))
             np.savetxt(fileID, np.matrix(np.average(den_time, axis=0)).T, fmt='%.4f', delimiter='  ')
             fileID.write('\n')
             k += 1

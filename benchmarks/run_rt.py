@@ -38,7 +38,7 @@ para = {'dataPath': '../data/',
 startTime = time.time() # start timing
 utils.setConfig(para) # set configuration
 logger.info('==============================================')
-logger.info('AMF: Adaptive Matrix Factorization [ICDCS\'14]')
+logger.info('AMF: Adaptive Matrix Factorization [ICDCS 2014]')
 
 # load the dataset
 dataTensor = dataloader.load(para)

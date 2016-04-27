@@ -1,17 +1,25 @@
 ##AMF
 
-This repository maintains the implementation of an adaptive matrix factorization approach to online QoS prediction of cloud services, which has been published in ICDCS'2014.
+This repository maintains the implementation of an adaptive matrix factorization approach to online QoS prediction of cloud services.
 
 Read more information from our papers: 
 
->1. Jieming Zhu, Pinjia He, Zibin Zheng, and Michael R. Lyu, "**Online QoS Prediction for Runtime Service Adaptation via Adaptive Matrix Factorization**," *submitted to IEEE Transactions on Parallel and Distributed Systems (TPDS)*, 2016. [[Draft](http://xxx)]
->2. Jieming Zhu, Pinjia He, Zibin Zheng, and Michael R. Lyu, "**Towards Online, Accurate, and Scalable QoS Prediction for Runtime Service Adaptation**," *in Proc. of the 34th IEEE International Conference on Distributed Computing Systems (ICDCS)*, 2014. [[Paper](http://jiemingzhu.github.io/pub/jmzhu_icdcs2014.pdf)]
+1. Jieming Zhu, Pinjia He, Zibin Zheng, and Michael R. Lyu, "**Online QoS Prediction for Runtime Service Adaptation via Adaptive Matrix Factorization**," *submitted to IEEE Transactions on Parallel and Distributed Systems (TPDS)*, 2016. [[Draft](http://xxx)]
+
+2. Jieming Zhu, Pinjia He, Zibin Zheng, and Michael R. Lyu, "**Towards Online, Accurate, and Scalable QoS Prediction for Runtime Service Adaptation**," *in Proc. of the 34th IEEE International Conference on Distributed Computing Systems (ICDCS)*, 2014. [[Paper](http://jiemingzhu.github.io/pub/jmzhu_icdcs2014.pdf)]
 
 ###Dependencies
 - Python 2.7 (https://www.python.org)
 - Cython 0.20.1 (http://cython.org)
 - numpy 1.8.1 (http://www.scipy.org)
 - scipy 0.13.3 (http://www.scipy.org)
+
+###Versions
+The repo maintains three versions of AMF in different branches:
+- [master](.): current optimized version in python
+- [icdcs14-python](https://github.com/wsdream/AMF/tree/icdcs14-python): python-version code for ICDCS'2014 paper
+- [icdcs14-matlab](https://github.com/wsdream/AMF/tree/icdcs14-matlab): matlab-version code for ICDCS'2014 paper
+
 
 ###Usage
 

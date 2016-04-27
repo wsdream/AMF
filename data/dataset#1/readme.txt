@@ -1,13 +1,13 @@
 ****************************************************************************
 * README file for 339 * 5825 Web service QoS dataset
-* Last updated: 2015/08/29
+* Last updated: 2016/04/27
 ****************************************************************************
 
 This dataset describes real-world QoS evaluation results from 339 users on 
 5,825 Web services. Note that we have recently updated the location 
 information (e.g., IP, AS, Latitude, Longitude) of users and services into 
 the dataset. It is available for downloading at: 
-http://wsdream.github.io/dataset/wsrec_dataset1
+http://wsdream.github.io/dataset/wsdream_dataset1.html
 
 ****************************************************************************
 List of contents of the dataset
@@ -56,5 +56,5 @@ License
 
 The MIT License (MIT)
 
-Copyright (c) 2015, WS-DREAM, CUHK (https://wsdream.github.io)
+Copyright (c) 2016, WS-DREAM, CUHK (https://wsdream.github.io)
 

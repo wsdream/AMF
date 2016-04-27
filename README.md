@@ -1,11 +1,7 @@
-## Public Web Service Datasets
+##WS-DREAM Datasets
 
-This repository maintains a set of publicly available datasets collected from real-world Web services, which have been used in our code implementation. 
+This repository maintains a set of QoS datasets which we collected from real-world Web services. The datasets are publicly released to hopefully facilitate valuable research in the [Service Society](http://www.servicessociety.org/en/). Please feel free to contact us if you have any comments or questions. We would love to hear from researchers on ideas to improve WS-DREAM datasets.
 
-For more available datasets, please visit:
-- WS-DREAM QoS datasets: http://www.wsdream.net/dataset.html.
-- WWW'14 QoS dataset: http://www.service4all.org.cn/servicexchange
-- FSE'13 [reliability data](http://ccl.fer.hr/wordpress/people/research-assistants/marin-silic/clus-evaluation-dataset)
 
 ---
 
@@ -13,20 +9,19 @@ For more available datasets, please visit:
 
 **339 * 5825 Web service QoS dataset**
 
-This dataset describes real-world QoS evaluation results from 339 users on 
-5,825 Web services. Note that we have recently updated the location 
+This dataset describes real-world QoS evaluation results, including both response time and throuput values, obtained from 339 users on 5,825 Web services. Note that we have recently updated the location 
 information (e.g., IP, AS, Latitude, Longitude) of users and services into 
-the dataset. It is available for downloading at: 
-http://wsdream.github.io/dataset/wsrec_dataset1
+the dataset. The dataset and its full description are available for downloading at: 
+http://wsdream.github.io/dataset/wsdream_dataset1.html
 
 
 ###dataset#2
 **142 * 4500 * 64 time-aware Web service QoS dataset**
 
 This dataset describes real-world QoS evaluation results from 142 users on 
-4,500 Web services over 64 different time slices (at 15-minute interval). 
-The dataset is available for downloading at: 
-http://wsdream.github.io/dataset/wsrec_dataset2
+4,500 Web services over 64 consecutive time slices (at 15-minute interval). 
+The dataset and its full description are available for downloading at: 
+http://wsdream.github.io/dataset/wsdream_dataset2.html
 
 ---
 
@@ -40,5 +35,5 @@ location information
 ##License
 The MIT License (MIT)
 
-Copyright &copy; 2015, [WS-DREAM](https://wsdream.github.io), CUHK
+Copyright &copy; 2016, [WS-DREAM](https://wsdream.github.io), CUHK
 

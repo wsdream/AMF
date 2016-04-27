@@ -9,7 +9,7 @@ import zipfile
 import shutil
 
 
-url = 'http://wsdream.github.io/dataset/wsrec_dataset2'
+url = 'http://wsdream.github.io/dataset/wsdream_dataset2'
 page = urllib2.urlopen(url)
 html = page.read()
 pattern = r'<a id="downloadlink" href="(.*?)"'

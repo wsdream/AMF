@@ -2,7 +2,7 @@
 % dataProcess.m: the scripts for data preprocessing
 %
 % Download the dataset at: 
-%       http://wsdream.github.io/dataset/wsrec_dataset2
+%       http://wsdream.github.io/dataset/wsdream_dataset2.html
 % unzip the file and then run this script for processing
 %
 % Author: Jamie Zhu <jimzhatu@GitHub>

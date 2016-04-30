@@ -3,7 +3,7 @@
  * C++ implements on AMF
  * Author: Jamie Zhu <jimzhu@GitHub>
  * Created: 2014/5/6
- * Last updated: 2016/02/15
+ * Last updated: 2016/4/30
 ********************************************************/
 
 #include <iostream>
@@ -21,14 +21,15 @@ typedef pair<pair<int, int>, double> SAMPLE;
 const double EPS = 1e-8;
 
 
-inline double sqr(double x) {return x * x;}
+inline double square(double x) {return x * x;}
 
 /********************************************************
  * Udata, Sdata, predData are the output values
 ********************************************************/
-void AMF(double *removedData, int numUser, int numService, int dim, double lmda, 
-    int maxIter, double convergeThreshold, double eta, double beta, bool debugMode, 
-    double *Udata, double *Sdata, double *predData)
+void AMF(double *removedData, int numUser, int numService, int dim, 
+    double lmda, int maxIter, double convergeThreshold, double eta, 
+    double beta, bool debugMode, double *Udata, double *Sdata, double *p,
+    double *q, double *predData)
 {   
     // --- transfer the 1D pointer to 2D array pointer
     double **removedMatrix = vector2Matrix(removedData, numUser, numService);
@@ -52,7 +53,7 @@ void AMF(double *removedData, int numUser, int numService, int dim, double lmda,
     SAMPLE spInstance;
     int iter = 0, minIter = 30, restart = 0;
     int i, j;
-    double rValue, lossValue = 1e10, gradU, gradS;
+    double rValue, lossValue = 1e10, gradU, gradS, gradP, gradQ;
     long double eij, wi, wj;
     vector<long double> eu(numUser, 1), es(numService, 1);
     srand((unsigned)time(NULL));
@@ -60,7 +61,7 @@ void AMF(double *removedData, int numUser, int numService, int dim, double lmda,
     while(lossValue > convergeThreshold || iter < minIter) { 
         // re-initialize U and S and restart iteration, if not converged
         if (iter >= maxIter) {
-            if (restart < 5) {
+            if (restart < 10) {
                 iter = 0;
                 restart++;               
                 for (int k = 0; k < dim; k++) {
@@ -70,6 +71,12 @@ void AMF(double *removedData, int numUser, int numService, int dim, double lmda,
                     for (int b = 0; b < numService; b++) {
                         S[b][k] = ((double) rand()) / RAND_MAX;
                     }
+                }
+                for (int a = 0; a < numUser; a++) {
+                        p[a] = 0;
+                }
+                for (int b = 0; b < numService; b++) {
+                        q[b] = 0;
                 }
             }
             else break;                       
@@ -86,8 +93,8 @@ void AMF(double *removedData, int numUser, int numService, int dim, double lmda,
             rValue = spInstance.second;
 
             // confidence updates
-            long double uv = dotProduct(U[i], S[j], dim);
-            double pValue = sigmoid(uv);
+            long double qos = dotProduct(U[i], S[j], dim) + p[i] + q[j];
+            double pValue = sigmoid(qos);
             eij = fabs(pValue - rValue) / rValue;
             wi = eu[i] / (eu[i] + es[j]);
             wj = es[j] / (eu[i] + es[j]);
@@ -95,21 +102,24 @@ void AMF(double *removedData, int numUser, int numService, int dim, double lmda,
             es[j] = beta * wj * eij + (1 - beta * wj) * es[j];
 
             // gradient descent updates
-            long double grad_sigmoid_uv = grad_sigmoid(uv);
-            double sqr_rValue = sqr(rValue);
+            long double grad_sigmoid_qos = grad_sigmoid(qos);
             for (int k = 0; k < dim; k++) {
-                gradU = wi * (pValue - rValue) * grad_sigmoid_uv * S[j][k] / sqr_rValue
+                gradU = wi * (pValue - rValue) * grad_sigmoid_qos * S[j][k]
                     + lmda * U[i][k];
-                gradS = wj * (pValue - rValue) * grad_sigmoid_uv * U[i][k] / sqr_rValue
+                gradS = wj * (pValue - rValue) * grad_sigmoid_qos * U[i][k]
                     + lmda * S[j][k];
                 U[i][k] -= eta * gradU;
                 S[j][k] -= eta * gradS;
             }
+            gradP = wi * (pValue - rValue) * grad_sigmoid_qos + lmda * p[i];
+            gradQ = wi * (pValue - rValue) * grad_sigmoid_qos + lmda * q[j];
+            p[i] -= eta * gradP;
+            q[j] -= eta * gradQ;
         }
 
         // update predMatrix and loss value
-        getPredMatrix(false, removedMatrix, U, S, numUser, numService, dim, predMatrix);
-        lossValue = loss(U, S, removedMatrix, predMatrix, lmda, numUser, numService, dim);
+        getPredMatrix(false, removedMatrix, U, S, p, q, numUser, numService, dim, predMatrix);
+        lossValue = loss(U, S, p, q, removedMatrix, predMatrix, lmda, numUser, numService, dim);
         lossValue = lossValue / numSample;
 
         // log the debug info to check convergence   
@@ -123,7 +133,7 @@ void AMF(double *removedData, int numUser, int numService, int dim, double lmda,
     }
 
     // update predMatrix
-    getPredMatrix(true, removedMatrix, U, S, numUser, numService, dim, predMatrix);
+    getPredMatrix(true, removedMatrix, U, S, p, q, numUser, numService, dim, predMatrix);
 
     delete ((char*) U);
     delete ((char*) S);
@@ -132,7 +142,7 @@ void AMF(double *removedData, int numUser, int numService, int dim, double lmda,
 }
 
 
-double loss(double **U, double **S, double **removedMatrix, double **predMatrix, double lmda, 
+double loss(double **U, double **S, double *p, double *q, double **removedMatrix, double **predMatrix, double lmda, 
     int numUser, int numService, int dim)
 {
     int i, j, k;
@@ -142,7 +152,7 @@ double loss(double **U, double **S, double **removedMatrix, double **predMatrix,
     for (i = 0; i < numUser; i++) {
         for (j = 0; j < numService; j++) {
             if (fabs(removedMatrix[i][j]) > EPS) {
-                loss += 0.5 * sqr((removedMatrix[i][j] - predMatrix[i][j]) / removedMatrix[i][j]);  
+                loss += 0.5 * square((removedMatrix[i][j] - predMatrix[i][j]) / removedMatrix[i][j]);  
             }
         }
     }
@@ -150,25 +160,31 @@ double loss(double **U, double **S, double **removedMatrix, double **predMatrix,
     // L2 regularization
     for (k = 0; k < dim; k++) {
         for (i = 0; i < numUser; i++) {
-            loss += 0.5 * lmda * sqr(U[i][k]);
+            loss += 0.5 * lmda * square(U[i][k]);
         }
         for (j = 0; j < numService; j++) {
-            loss += 0.5 * lmda * sqr(S[j][k]);
+            loss += 0.5 * lmda * square(S[j][k]);
         }
+    }
+    for (i = 0; i < numUser; i++) {
+        loss += 0.5 * lmda * square(p[i]);
+    }
+    for (j = 0; j < numService; j++) {
+        loss += 0.5 * lmda * square(q[j]);
     }
 
     return loss;
 }
 
 
-void getPredMatrix(bool flag, double **removedMatrix, double **U, double **S, int numUser, 
-        int numService, int dim, double **predMatrix)
+void getPredMatrix(bool flag, double **removedMatrix, double **U, double **S, double *p, double *q, 
+    int numUser, int numService, int dim, double **predMatrix)
 {
     int i, j;
     for (i = 0; i < numUser; i++) {
         for (j = 0; j < numService; j++) {
             if (flag == true || fabs(removedMatrix[i][j]) > EPS) {
-                predMatrix[i][j] = sigmoid(dotProduct(U[i], S[j], dim));
+                predMatrix[i][j] = sigmoid(p[i] + q[j] + dotProduct(U[i], S[j], dim));
             } 
         }
     }

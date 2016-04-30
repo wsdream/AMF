@@ -2,7 +2,7 @@
 # evallib.py: common functions for evaluator.py
 # Author: Jamie Zhu <jimzhu@GitHub>
 # Created: 2015/8/17
-# Last updated: 2015/8/30
+# Last updated: 2016/4/30
 ########################################################
 
 import numpy as np 
@@ -25,62 +25,35 @@ def evaluate(testMatrix, recoveredMatrix, para):
 
 
 #======================================================#
-# Function to remove the entries of data tensor
-# Return the trainTensor and the corresponding testTensor
-#======================================================#
-def removeTensor(tensor, density, round, para):
-    numTime = tensor.shape[2]
-    trainTensor = np.zeros(tensor.shape)
-    testTensor = np.zeros(tensor.shape)
-    for i in range(numTime):
-        seedID = round + i * 100
-        (trainMatrix, testMatrix) = removeEntries(tensor[:, :, i], density, seedID)
-        trainTensor[:, :, i] = trainMatrix
-        testTensor[:, :, i] = testMatrix
-    return trainTensor, testTensor
-
-
-#======================================================#
 # Function to remove the entries of data matrix
-# which uses guassian random sampling
-# Return trainMatrix and testMatrix
+# Return the trainMatrix and testMatrix
 #======================================================#
-def removeEntries(matrix, density, seedID):
+def removeEntries(matrix, density, seedId):
+    (vecX, vecY) = np.where(matrix > 0)
+    vecXY = np.c_[vecX, vecY]
+    numRecords = vecX.size
     numAll = matrix.size
+    random.seed(seedId)
+    randomSequence = range(0, numRecords)
+    random.shuffle(randomSequence) # one random sequence per round
     numTrain = int(numAll * density)
-    (vecX, vecY) = np.where(matrix > -1000)
-    np.random.seed(seedID % 100)
-    randPermut = np.random.permutation(numAll)  
-    np.random.seed(seedID)
-    randSequence = np.random.normal(0, numAll / 6.0, numAll * 10)
-
-    trainSet = []
-    flags = np.zeros(numAll)
-    for i in xrange(randSequence.shape[0]):
-        sample = int(abs(randSequence[i]))
-        if sample < numAll:
-            idx = randPermut[sample]
-            if flags[idx] == 0 and matrix[vecX[idx], vecY[idx]] > 0:
-                trainSet.append(idx)
-                flags[idx] = 1
-        if len(trainSet) == numTrain:
-            break
-    if len(trainSet) < numTrain:
-        logger.critical('Exit unexpectedly: not enough data for density = %.2f.', density)
-        sys.exit()
+    # by default, we set the remaining QoS records as testing data                     
+    numTest = numRecords - numTrain
+    trainXY = vecXY[randomSequence[0 : numTrain], :]
+    testXY = vecXY[randomSequence[- numTest :], :]
 
     trainMatrix = np.zeros(matrix.shape)
-    trainMatrix[vecX[trainSet], vecY[trainSet]] = matrix[vecX[trainSet], vecY[trainSet]]
+    trainMatrix[trainXY[:, 0], trainXY[:, 1]] = matrix[trainXY[:, 0], trainXY[:, 1]]
     testMatrix = np.zeros(matrix.shape)
-    testMatrix[matrix > 0] = matrix[matrix > 0]
-    testMatrix[vecX[trainSet], vecY[trainSet]] = 0
+    testMatrix[testXY[:, 0], testXY[:, 1]] = matrix[testXY[:, 0], testXY[:, 1]]
 
-    # ignore invalid testing users or services             
+    # ignore invalid testing data
     idxX = (np.sum(trainMatrix, axis=1) == 0)
     testMatrix[idxX, :] = 0
     idxY = (np.sum(trainMatrix, axis=0) == 0)
     testMatrix[:, idxY] = 0    
     return trainMatrix, testMatrix
+
 
 
 #======================================================#
@@ -211,7 +184,7 @@ def saveSummaryResult(outfile, result, timeinfo, para):
         k = 0
         for den in para['density']:
             den_time = timeinfo[k, :, :]
-            fileID.write('[density=%.2f]\n'%den)
+            fileID.write('[density=%.2f, %2d slices]\n'%(den, timeinfo.shape[2]))
             np.savetxt(fileID, np.matrix(np.average(den_time, axis=0)).T, fmt='%.4f', delimiter='  ')
             fileID.write('\n')
             k += 1

@@ -2,7 +2,7 @@
 # evaluator.py
 # Author: Jamie Zhu <jimzhu@GitHub>
 # Created: 2014/2/6
-# Last updated: 2015/8/30
+# Last updated: 2016/4/30
 ########################################################
 
 import numpy as np 
@@ -45,9 +45,8 @@ def executeOneSetting(tensor, density, roundId, para):
     # initialization
     U = np.random.rand(numUser, dim)
     S = np.random.rand(numService, dim)
-
-    # remove the entries of data to generate trainTensor and testTensor
-    (trainTensor, testTensor) = evallib.removeTensor(tensor, density, roundId, para)
+    p = np.zeros(numUser)
+    q = np.zeros(numService)
 
     # run for each time slice
     for sliceId in xrange(numTime):
@@ -62,28 +61,15 @@ def executeOneSetting(tensor, density, roundId, para):
         transfMatrix[transfMatrix != -1] = (transfMatrix[transfMatrix != -1] - minV) / (maxV - minV)
 
         # remove data entries to generate trainMatrix and testMatrix  
-        # seedID = roundId + sliceId * 100
-        # (trainMatrix, testMatrix) = evallib.removeEntries(matrix, density, seedID)
-        trainMatrix = trainTensor[:, :, sliceId]
+        seedID = roundId + sliceId * 100
+        (trainMatrix, testMatrix) = evallib.removeEntries(matrix, density, seedID)
         trainMatrix = np.where(trainMatrix > 0, transfMatrix, 0)
-        testMatrix = testTensor[:, :, sliceId]
-
         (testVecX, testVecY) = np.where(testMatrix)     
         testVec = matrix[testVecX, testVecY]
 
-        # SVD initialization
-        # if sliceId == 0:
-        #     logitMatrix = np.where(trainMatrix > 0, special.logit(trainMatrix), 0)
-        #     [U, Sigma, S] = np.linalg.svd(logitMatrix)
-        #     Diag = np.diag(Sigma)
-        #     U = np.dot(U, Diag)[:, 0:dim].copy()
-        #     S = S[:, 0:dim].copy()
-        #     print U.shape
-        #     print S.shape
-
         # invocation to the prediction function
         startTime = time.clock() 
-        predictedMatrix = AMF.predict(trainMatrix, U, S, para)     
+        predictedMatrix = AMF.predict(trainMatrix, U, S, p, q, para)     
         runningTime = float(time.clock() - startTime)
 
         # evaluate the estimation error  
@@ -97,7 +83,7 @@ def executeOneSetting(tensor, density, roundId, para):
         outFile = '%s%s_%s_result_%02d_%.2f_round%02d.tmp'%(para['outPath'], 
             para['dataName'], para['dataType'], sliceId + 1, density, roundId + 1)
         evallib.dumpresult(outFile, result)
-        logger.info('sliceId = %02d done.'%(sliceId + 1))
+        logger.info('sliceId=%02d done.'%(sliceId + 1))
         
     logger.info('density=%.2f, %2d-round done.'%(density, roundId + 1))
     logger.info('----------------------------------------------')

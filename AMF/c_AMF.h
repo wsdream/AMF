@@ -11,12 +11,13 @@ using namespace std;
 
 
 /* Perform the core approach of AMF */
-void AMF(double *removedData, int numUser, int numService, int dim, double lmda, 
-    int maxIter, double convergeThreshold, double eta, double beta, bool debugMode, 
-    double *Udata, double *Sdata, double *predData);
+void AMF(double *removedData, int numUser, int numService, int dim, 
+    double lmda, int maxIter, double convergeThreshold, double eta, 
+    double beta, bool debugMode, double *Udata, double *Sdata, double *p,
+    double *q, double *predData);
 
 /* Compute the loss value of AMF */
-double loss(double **U, double **S, double **removedMatrix, double **predMatrix, double lmda, 
+double loss(double **U, double **S, double *p, double *q, double **removedMatrix, double **predMatrix, double lmda, 
     int numUser, int numService, int dim);
 
 /* Sigmoid function */
@@ -26,8 +27,8 @@ double sigmoid(long double x);
 long double grad_sigmoid(long double x);
 
 /* Compute predMatrix */
-void getPredMatrix(bool flag, double **removedMatrix, double **U, double **S, int numUser, 
-        int numService, int dim, double **predMatrix);
+void getPredMatrix(bool flag, double **removedMatrix, double **U, double **S, double *p, double *q, 
+    int numUser, int numService, int dim, double **predMatrix);
 
 /* Transform a vector into a matrix */ 
 double **vector2Matrix(double *vector, int row, int col);

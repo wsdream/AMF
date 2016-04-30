@@ -16,7 +16,7 @@ Read more information from our papers:
 
 ###Versions
 The repo maintains three versions of AMF in different branches:
-- [master](.): current optimized version in python
+- [master](https://github.com/wsdream/AMF/tree/master): current optimized version in python
 - [icdcs14-python](https://github.com/wsdream/AMF/tree/icdcs14-python): python-version code for ICDCS'2014 paper
 - [icdcs14-matlab](https://github.com/wsdream/AMF/tree/icdcs14-matlab): matlab-version code for ICDCS'2014 paper
 

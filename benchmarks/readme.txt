@@ -1,12 +1,12 @@
 ****************************************************************************
 * README file 
 * Author: Jamie Zhu <jimzhu@GitHub>
-* Last updated: 2016/04/23           
+* Last updated: 2016/05/02           
 ****************************************************************************
 
 This directory maintains the testing code used to benchmark the AMF package.
 The code can be also used to reproduce the results in our work [Zhu et al.,
-ICDCS'14].
+XXXX'16].
 
 ****************************************************************************
 Contents of this directory

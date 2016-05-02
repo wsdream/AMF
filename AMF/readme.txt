@@ -1,7 +1,7 @@
 ****************************************************************************
 * README file 
 * Author: Jamie Zhu <jimzhu@GitHub>
-* Last updated: 2016/04/23         
+* Last updated: 2016/05/02         
 ****************************************************************************
 
 This directory maintains the core implementation of adaptive matrix 

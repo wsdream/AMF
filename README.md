@@ -1,10 +1,10 @@
 ##AMF
 
-This repository maintains the implementation of an adaptive matrix factorization approach to online QoS prediction of cloud services.
+This repository maintains the implementation of an adaptive matrix factorization approach to online QoS prediction of cloud services. 
 
-Read more information from our papers: 
+More information about the algorithm is available at the following publications: 
 
-1. Jieming Zhu, Pinjia He, Zibin Zheng, and Michael R. Lyu, "**Online QoS Prediction for Runtime Service Adaptation via Adaptive Matrix Factorization**," *submitted to IEEE Transactions on Parallel and Distributed Systems (TPDS)*, 2016. [[Draft](http://xxx)]
+1. Jieming Zhu, Pinjia He, Zibin Zheng, and Michael R. Lyu, "**Online QoS Prediction for Runtime Service Adaptation via Adaptive Matrix Factorization**," *submitted for journal publication*, 2016. [[Draft](http://xxx)]
 
 2. Jieming Zhu, Pinjia He, Zibin Zheng, and Michael R. Lyu, "**Towards Online, Accurate, and Scalable QoS Prediction for Runtime Service Adaptation**," *in Proc. of the 34th IEEE International Conference on Distributed Computing Systems (ICDCS)*, 2014. [[Paper](http://jiemingzhu.github.io/pub/jmzhu_icdcs2014.pdf)]
 
@@ -28,6 +28,7 @@ The AMF algorithm is implemented in C++ and further wrapped up as a python packa
 1. Install `AMF` package
   
   Download the repo: `git clone https://github.com/wsdream/AMF.git`,
+  
   then install the package `python setup.py install --user`.    
 
 2. Change directory `cd` to `"benchmarks/"`, and configure the parameters in benchmark scripts

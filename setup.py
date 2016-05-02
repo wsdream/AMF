@@ -5,7 +5,7 @@
 
 '''
 
-description = 'AMF - A python package to Adaptive Matrix Factorization'
+description = 'AMF - A Python Package to Adaptive Matrix Factorization'
 
 from distutils.core import setup, Extension
 import os

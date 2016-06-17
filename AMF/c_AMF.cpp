@@ -51,7 +51,7 @@ void AMF(double *removedData, int numUser, int numService, int dim,
 
     // --- iterate by standard gradient descent algorithm
     SAMPLE spInstance;
-    int iter = 0, minIter = 30, restart = 0;
+    int iter = 0, minIter = 30;
     int i, j;
     double rValue, lossValue = 1e10, gradU, gradS, gradP, gradQ;
     long double eij, wi, wj;
@@ -59,27 +59,9 @@ void AMF(double *removedData, int numUser, int numService, int dim,
     srand((unsigned)time(NULL));
 
     while(lossValue > convergeThreshold || iter < minIter) { 
-        // re-initialize U and S and restart iteration, if not converged
+        // max iteration
         if (iter >= maxIter) {
-            if (restart < 10) {
-                iter = 0;
-                restart++;               
-                for (int k = 0; k < dim; k++) {
-                    for (int a = 0; a < numUser; a++) {
-                        U[a][k] = ((double) rand()) / RAND_MAX;
-                    }
-                    for (int b = 0; b < numService; b++) {
-                        S[b][k] = ((double) rand()) / RAND_MAX;
-                    }
-                }
-                for (int a = 0; a < numUser; a++) {
-                        p[a] = 0;
-                }
-                for (int b = 0; b < numService; b++) {
-                        q[b] = 0;
-                }
-            }
-            else break;                       
+            break;                       
         }
 
         // random shuffle of sample

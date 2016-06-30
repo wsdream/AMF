@@ -4,7 +4,7 @@ This repository maintains the implementation of an adaptive matrix factorization
 
 More information about the algorithm is available at the following publications: 
 
-1. Jieming Zhu, Pinjia He, Zibin Zheng, and Michael R. Lyu, "**Online QoS Prediction for Runtime Service Adaptation via Adaptive Matrix Factorization**," *submitted for journal publication*, 2016. [[Draft](http://xxx)]
+1. Jieming Zhu, Pinjia He, Zibin Zheng, and Michael R. Lyu, "**Online QoS Prediction for Runtime Service Adaptation via Adaptive Matrix Factorization**," *submitted for journal publication*, 2016. [[Draft](http://jiemingzhu.github.io/pub/jmzhu_tpds2016_submission.pdf)]
 
 2. Jieming Zhu, Pinjia He, Zibin Zheng, and Michael R. Lyu, "**Towards Online, Accurate, and Scalable QoS Prediction for Runtime Service Adaptation**," *in Proc. of the 34th IEEE International Conference on Distributed Computing Systems (ICDCS)*, 2014. [[Paper](http://jiemingzhu.github.io/pub/jmzhu_icdcs2014.pdf)]
 

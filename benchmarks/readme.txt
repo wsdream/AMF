@@ -1,12 +1,12 @@
 ****************************************************************************
 * README file 
 * Author: Jamie Zhu <jimzhu@GitHub>
-* Last updated: 2016/05/02           
+* Last updated: 2017/05/01       
 ****************************************************************************
 
 This directory maintains the testing code used to benchmark the AMF package.
 The code can be also used to reproduce the results in our work [Zhu et al.,
-XXXX'16].
+TPDS'17].
 
 ****************************************************************************
 Contents of this directory
@@ -37,9 +37,9 @@ Reference and citation
 Please refer to the following paper for the detailed description of the 
 implemented algorithm:
 
-- Jieming Zhu, Pinjia He, Zibin Zheng, and Michael R. Lyu, "Towards Online, 
-  Accurate, and Scalable QoS Prediction for Runtime Service Adaptation," in 
-  Proc. of IEEE ICDCS, 2014, pp. 318-327. 
+- Jieming Zhu, Pinjia He, Zibin Zheng, and Michael R. Lyu, "Online QoS 
+Prediction for Runtime Service Adaptation via Adaptive Matrix Factorization," 
+IEEE Transactions on Parallel and Distributed Systems (TPDS), 2017.
 
 IF YOU USE THIS PACKAGE IN PUBLISHED RESEARCH, PLEASE CITE THE ABOVE PAPER. 
 THANKS!
@@ -49,6 +49,6 @@ License
 ****************************************************************************
 
 The MIT License (MIT)
-Copyright (c) 2016, WS-DREAM, CUHK
+Copyright (c) 2017, WS-DREAM, CUHK
 
 

@@ -27,7 +27,8 @@ benchmarks/
     - dataset#2_tp_result.txt  - evaluation results on throughput QoS data
 
 Note that the experimental results are provided with the metrics (MAE, MRE, 
-NPRE). Each experiment is run for 20 times and the average result (including std value) is reported. 
+NPRE). Each experiment is run for 20 times and the average result (including 
+std value) is reported. 
 
 ****************************************************************************
 Reference and citation

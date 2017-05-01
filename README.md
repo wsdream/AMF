@@ -27,13 +27,13 @@ The AMF algorithm is implemented in C++ and further wrapped up as a python packa
 
 1. Install `AMF` package
   
-  Download the repo: `git clone https://github.com/wsdream/AMF.git`,
+   Download the repo: `git clone https://github.com/wsdream/AMF.git`,
   
-  then install the package `python setup.py install --user`.    
+   then install the package `python setup.py install --user`.    
 
 2. Change directory `cd` to `"benchmarks/"`, and configure the parameters in benchmark scripts
   
-  For example, in `run_rt.py`, you can config the `'parallelMode': True` if you are running a multi-core machine. You can also set `'rounds': 1` for testing, which can make the execution finish soon.
+   For example, in `run_rt.py`, you can config the `'parallelMode': True` if you are running a multi-core machine. You can also set `'rounds': 1` for testing, which can make the execution finish soon.
 
 3. Run the benchmark scripts
      
@@ -52,5 +52,5 @@ For bugs and feedback, please post to [our issue page](https://github.com/wsdrea
 ### License
 [The MIT License (MIT)](./LICENSE)
 
-Copyright &copy; 2016, [WS-DREAM](https://wsdream.github.io), CUHK
+Copyright &copy; 2017, [WS-DREAM](https://wsdream.github.io), CUHK
 

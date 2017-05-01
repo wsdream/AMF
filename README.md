@@ -2,11 +2,11 @@
 
 This repository maintains the implementation of an adaptive matrix factorization approach to online QoS prediction of cloud services. 
 
-More information about the algorithm is available at the following publications: 
+Read more information about the algorithm from our publications: 
 
-1. Jieming Zhu, Pinjia He, Zibin Zheng, and Michael R. Lyu, "**Online QoS Prediction for Runtime Service Adaptation via Adaptive Matrix Factorization**," *submitted for journal publication*, 2016.
+1. Jieming Zhu, Pinjia He, Zibin Zheng, and Michael R. Lyu, "[Online QoS Prediction for Runtime Service Adaptation via Adaptive Matrix Factorization](http://jiemingzhu.github.io/pub/jmzhu_tpds2017.pdf)," *IEEE Transactions on Parallel and Distributed Systems (TPDS)*, accepted, 2017.
 
-2. Jieming Zhu, Pinjia He, Zibin Zheng, and Michael R. Lyu, "**Towards Online, Accurate, and Scalable QoS Prediction for Runtime Service Adaptation**," *in Proc. of the 34th IEEE International Conference on Distributed Computing Systems (ICDCS)*, 2014. [[Paper](http://jiemingzhu.github.io/pub/jmzhu_icdcs2014.pdf)]
+2. Jieming Zhu, Pinjia He, Zibin Zheng, and Michael R. Lyu, "[Towards Online, Accurate, and Scalable QoS Prediction for Runtime Service Adaptation](http://jiemingzhu.github.io/pub/jmzhu_icdcs2014.pdf)," *in Proc. of the 34th IEEE International Conference on Distributed Computing Systems (ICDCS)*, 2014. 
 
 ###Dependencies
 - Python 2.7 (https://www.python.org)

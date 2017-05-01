@@ -37,10 +37,10 @@ The AMF algorithm is implemented in C++ and further wrapped up as a python packa
 
 3. Run the benchmark scripts
      
-  ```    
-    $ python run_rt.py
-    $ python run_tp.py 
-  ```
+   ```    
+     $ python run_rt.py
+     $ python run_tp.py 
+   ```
     
 4. Check the evaluation results in `"benchmarks/result/"` directory. Note that the repository has maintained the results evaluated on [WS-DREAM datasets](https://github.com/wsdream/dataset), which are ready for immediate use.
 
